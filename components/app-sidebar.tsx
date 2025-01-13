@@ -1,175 +1,143 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
-  AudioWaveform,
   BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react"
+  Edit,
+  CircleUser,
+  MessageSquare,
+  FileText,
+  RefreshCcw,
+  Search,
+  Users,
+  Thermometer,
+} from "lucide-react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { NavMain } from "@/components/nav-main";
+import { NavProjects } from "@/components/nav-projects";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
+  useSidebar,
+} from "@/components/ui/sidebar";
+import { Button } from "./ui/button";
+import { CompanyLogo } from "@/icons/logo";
+import Link from "next/link";
+import TruthyRenderer from "./truthy-renderer";
+import Discord from "@/icons/discord";
+import Twitter from "@/icons/twitter";
+import { cn } from "@/lib/utils";
+import SearchBar from "./sidebar/search-bar";
 
-// This is sample data.
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Lyra",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
   navMain: [
     {
-      title: "Playground",
+      title: "My Chats(3)",
       url: "#",
-      icon: SquareTerminal,
+      icon: MessageSquare,
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "Today",
           url: "#",
         },
         {
-          title: "Starred",
+          title: "Previous 7 Days",
           url: "#",
         },
         {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
+          title: "Procurement Chat",
           url: "#",
         },
         {
-          title: "Explorer",
+          title: "Imp Chats",
           url: "#",
         },
         {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
+          title: "Analytics Research",
           url: "#",
         },
       ],
     },
   ],
-  projects: [
+  navMain2: [
     {
-      name: "Design Engineering",
+      title: "My Data",
       url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
+      icon: FileText,
+      items: [
+        {
+          title: "Resources",
+          url: "#",
+          icon: RefreshCcw,
+        },
+        {
+          title: "Explore use case",
+          url: "#",
+          icon: Search,
+        },
+        {
+          title: "Documentation",
+          url: "#",
+          icon: BookOpen,
+        },
+        {
+          title: "Team discussions",
+          url: "#",
+          icon: Users,
+        },
+        {
+          title: "Agent Labs",
+          url: "#",
+          icon: Thermometer,
+        },
+      ],
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { state } = useSidebar();
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+      <SidebarHeader className="flex flex-row items-center justify-between pt-4">
+        <Link href="/" className={cn(state === "collapsed" ? "p-0" : "p-2")}>
+          <CompanyLogo />
+        </Link>
+        <TruthyRenderer value={state === "expanded"}>
+          <Button variant="ghost" size="icon" title="Edit">
+            <Edit />
+          </Button>
+        </TruthyRenderer>
       </SidebarHeader>
       <SidebarContent>
+        <SearchBar />
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavMain items={data.navMain2} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
+        <div className="w-full flex flex-row justify-between items-center">
+          <Button variant="ghost" size="icon">
+            <CircleUser />
+          </Button>
+          <TruthyRenderer value={state === "expanded"}>
+            <div className="flex flex-row items-center">
+              <Button variant="ghost" size="icon">
+                <Discord />
+              </Button>
+              <Button variant="ghost" size="icon">
+                <Twitter />
+              </Button>
+            </div>
+          </TruthyRenderer>
+        </div>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }
