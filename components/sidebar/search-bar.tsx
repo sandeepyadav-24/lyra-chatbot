@@ -9,9 +9,12 @@ import { Search } from "lucide-react";
 import { Button } from "../ui/button";
 import TruthyRenderer from "../truthy-renderer";
 import { cn } from "@/lib/utils";
+import { useRef } from "react";
+import { flushSync } from "react-dom";
 
 export default function SearchBar() {
-  const { state } = useSidebar();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { state, toggleSidebar } = useSidebar();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -22,11 +25,23 @@ export default function SearchBar() {
             state === "expanded" ? "border" : "border-transparent"
           )}
         >
-          <Button variant="ghost" size="icon">
+          <Button
+            onClick={() => {
+              flushSync(() => {
+                if (state === "collapsed") {
+                  toggleSidebar();
+                }
+              });
+              inputRef.current?.focus();
+            }}
+            variant="ghost"
+            size="icon"
+          >
             <Search />
           </Button>
           <TruthyRenderer value={state === "expanded"}>
             <Input
+              ref={inputRef}
               className="border-none pl-0 outline-none shadow-none focus-visible:ring-0"
               placeholder="Search"
             />
