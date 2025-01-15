@@ -11,6 +11,7 @@ import TruthyRenderer from "../truthy-renderer";
 import { cn } from "@/lib/utils";
 import { useRef } from "react";
 import { flushSync } from "react-dom";
+import RightTooltip from "../right-tooltip";
 
 export default function SearchBar() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -25,20 +26,22 @@ export default function SearchBar() {
             state === "expanded" ? "border" : "border-transparent"
           )}
         >
-          <Button
-            onClick={() => {
-              flushSync(() => {
-                if (state === "collapsed") {
-                  toggleSidebar();
-                }
-              });
-              inputRef.current?.focus();
-            }}
-            variant="ghost"
-            size="icon"
-          >
-            <Search />
-          </Button>
+          <RightTooltip tooltip="Search">
+            <Button
+              onClick={() => {
+                flushSync(() => {
+                  if (state === "collapsed") {
+                    toggleSidebar();
+                  }
+                });
+                inputRef.current?.focus();
+              }}
+              variant="ghost"
+              size="icon"
+            >
+              <Search />
+            </Button>
+          </RightTooltip>
           <TruthyRenderer value={state === "expanded"}>
             <Input
               ref={inputRef}

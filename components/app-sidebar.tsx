@@ -3,18 +3,16 @@
 import * as React from "react";
 import {
   BookOpen,
-  Edit,
   CircleUser,
   MessageSquare,
-  FileText,
   RefreshCcw,
   Search,
   Users,
   Thermometer,
+  Zap,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
-import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
@@ -32,6 +30,7 @@ import Discord from "@/icons/discord";
 import Twitter from "@/icons/twitter";
 import { cn } from "@/lib/utils";
 import SearchBar from "./sidebar/search-bar";
+import NewChatButton from "./sidebar/new-chat-button";
 
 const data = {
   navMain: [
@@ -66,15 +65,10 @@ const data = {
   ],
   navMain2: [
     {
-      title: "My Data",
+      title: "Resources",
       url: "#",
-      icon: FileText,
+      icon: RefreshCcw,
       items: [
-        {
-          title: "Resources",
-          url: "#",
-          icon: RefreshCcw,
-        },
         {
           title: "Explore use case",
           url: "#",
@@ -95,6 +89,11 @@ const data = {
           url: "#",
           icon: Thermometer,
         },
+        {
+          title: "Upgrade",
+          url: "#",
+          icon: Zap,
+        },
       ],
     },
   ],
@@ -104,17 +103,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className="flex flex-row items-center justify-between pt-4">
-        <Link href="/" className={cn(state === "collapsed" ? "p-0" : "p-2")}>
+      <SidebarHeader className="flex flex-row items-center gap-2 pt-4">
+        <Link
+          href="/"
+          className={cn("shrink-0", state === "collapsed" ? "p-0" : "p-2")}
+        >
           <CompanyLogo />
         </Link>
         <TruthyRenderer value={state === "expanded"}>
-          <Button variant="ghost" size="icon" title="Edit">
-            <Edit />
-          </Button>
+          <h2 className="text-2xl font-bold ">Lyra</h2>
         </TruthyRenderer>
       </SidebarHeader>
       <SidebarContent>
+        <NewChatButton />
         <SearchBar />
         <NavMain items={data.navMain} />
         <NavMain items={data.navMain2} />
