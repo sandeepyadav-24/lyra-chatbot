@@ -1,12 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarRail,
-  useSidebar,
-} from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarRail } from "@/components/ui/sidebar";
 import SearchBar from "./search-bar";
 import NewChatButton from "./new-chat-button";
 import CompanyLogoComponent from "./company-logo-component";
@@ -15,7 +10,6 @@ import { sidebarNavRendererData } from "./sidebar-constant-data";
 import SidebarNavRenderer from "./sidebar-nav-renderer";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { state } = useSidebar();
   return (
     <Sidebar collapsible="icon" {...props}>
       <CompanyLogoComponent />

@@ -2,13 +2,21 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useRouter } from "next/navigation";
+import { signIn, signOut } from "next-auth/react";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const router = useRouter();
+  const handleLogin = async () => {
+    await signIn("google", {
+      callbackUrl: "/dashboard",
+    });
+  };
+
+  const handleLogout = async () => {
+    await signOut();
+  };
   return (
     <div className="flex flex-col gap-6" {...props}>
       <Card className="w-full max-w-sm mx-auto">
@@ -20,12 +28,7 @@ export function LoginForm({
                 Sign in to your account using Google
               </p>
             </div>
-            <Button
-              className="w-full"
-              onClick={() => {
-                router.push("/dashboard");
-              }}
-            >
+            <Button className="w-full" onClick={handleLogin}>
               <svg
                 className="w-5 h-5 mr-2"
                 xmlns="http://www.w3.org/2000/svg"
@@ -41,6 +44,7 @@ export function LoginForm({
           </div>
         </CardContent>
       </Card>
+      <button onClick={handleLogout}>Logout</button>
       <div className="text-center text-xs text-muted-foreground">
         By signing in, you agree to our{" "}
         <a href="#" className="underline underline-offset-4 hover:text-primary">
