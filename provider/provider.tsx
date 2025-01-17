@@ -1,23 +1,13 @@
-import { Session } from "next-auth";
-import { SessionProviderWrapper } from "./session-provider";
 import { ThemeProvider } from "./theme-provider";
 
-export default function Provider({
-  children,
-  session,
-}: {
-  children: React.ReactNode;
-  session: Session;
-}) {
+export default function Provider({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider
       attribute="class"
       defaultTheme="light"
       disableTransitionOnChange
     >
-      <SessionProviderWrapper session={session}>
-        {children}
-      </SessionProviderWrapper>
+      {children}
     </ThemeProvider>
   );
 }

@@ -4,7 +4,6 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "../ui/sidebar";
 import RightTooltip from "../right-tooltip";
-import { Button } from "../ui/button";
 
 export type SidebarNavRendererItem = {
   title: string;
