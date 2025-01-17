@@ -28,9 +28,14 @@ import {
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import TruthyRenderer from "./truthy-renderer";
+import { signOut } from "next-auth/react";
 
 export function NavUser() {
   const { isMobile, state } = useSidebar();
+
+  async function logout() {
+    await signOut({ redirectTo: window.location.origin + "/" });
+  }
 
   return (
     <SidebarMenu>
@@ -82,7 +87,7 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator /> */}
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={logout}>
               <LogOut />
               Log out
             </DropdownMenuItem>
