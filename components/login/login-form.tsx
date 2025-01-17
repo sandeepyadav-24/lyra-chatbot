@@ -2,15 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const router = useRouter();
   const handleLogin = async () => {
-    router.push("/dashboard");
+    await signIn("google", { redirectTo: "/dashboard" });
   };
 
   return (
