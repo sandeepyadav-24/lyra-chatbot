@@ -9,7 +9,9 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
   const handleLogin = async () => {
-    await signIn("google", { redirectTo: "/dashboard" });
+    await signIn("google", {
+      redirectTo: window.location.origin + "/dashboard",
+    });
   };
 
   return (
