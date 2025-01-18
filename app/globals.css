@@ -50,6 +50,7 @@ body {
     --primary-color: #fff;
     --secondary-color: rgba(245, 245, 245);
     --text-hover: #8d8986;
+    --button-active: rgba(167, 166, 166, 0.86);
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -87,6 +88,7 @@ body {
     --primary-color: #0e0d0d;
     --secondary-color: #191819;
     --text-hover: #8d8986;
+    --button-active: #007aff;
   }
 }
 

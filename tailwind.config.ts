@@ -64,6 +64,7 @@ const config: Config = {
           primary: "var(--primary-color)",
           secondary: "var(--secondary-color)",
           textHover: "var(--text-hover)",
+          buttonActive: "var(--button-active)",
         },
       },
       borderRadius: {
