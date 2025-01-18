@@ -2,8 +2,8 @@ import { ChevronRight, LucideIcon } from "lucide-react";
 import TruthyRenderer from "../truthy-renderer";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { useSidebar } from "../ui/sidebar";
 import RightTooltip from "../right-tooltip";
+import useStateStore from "@/store/state-store";
 
 export type SidebarNavRendererItem = {
   title: string;
@@ -18,15 +18,14 @@ type SidebarNavRendererProps = {
 };
 
 export default function SidebarNavRenderer({ data }: SidebarNavRendererProps) {
+  const { leftSidebarOpen } = useStateStore();
   const [isOpenNavMain, setIsOpenNavMain] = useState<string[] | null>(null);
-  const { state } = useSidebar();
-  const isCollapsed = state === "collapsed";
   return (
     <div className={"flex flex-col gap-3"}>
       {data.map((item) => (
         <div key={item.title} className="flex flex-col gap-2 items-end">
           <div
-            className="flex flex-row w-full items-center gap-2 cursor-pointer hover:bg-sidebar-accent px-2 py-[6px] rounded-md"
+            className="flex flex-row w-full items-center gap-2 cursor-pointer hover:bg-app-secondary px-2 py-[6px] rounded-md"
             onClick={() =>
               setIsOpenNavMain(
                 isOpenNavMain?.includes(item.title)
@@ -40,17 +39,19 @@ export default function SidebarNavRenderer({ data }: SidebarNavRendererProps) {
                 <button
                   className={cn(
                     "border-none bg-transparent p-0 py-1",
-                    isCollapsed ? "py-1" : "py-0"
+                    !leftSidebarOpen ? "py-1" : "py-0"
                   )}
                 >
                   <item.icon className="w-4 h-4" />
                 </button>
               </RightTooltip>
             )}
-            <TruthyRenderer value={!isCollapsed}>
-              <p className="text-sm truncate">{item.title}</p>
+            <TruthyRenderer value={leftSidebarOpen}>
+              <p className="text-sm text-app-textPrimary truncate">
+                {item.title}
+              </p>
             </TruthyRenderer>
-            <TruthyRenderer value={item.isShowChevron && !isCollapsed}>
+            <TruthyRenderer value={item.isShowChevron && leftSidebarOpen}>
               <ChevronRight
                 className={cn(
                   "ml-auto w-4 h-4 transition-transform duration-200 ",
@@ -60,9 +61,9 @@ export default function SidebarNavRenderer({ data }: SidebarNavRendererProps) {
             </TruthyRenderer>
           </div>
           <TruthyRenderer
-            value={!!isOpenNavMain?.includes(item.title) && !isCollapsed}
+            value={!!isOpenNavMain?.includes(item.title) && leftSidebarOpen}
           >
-            <div className="flex pl-3 flex-col gap-2 border-l w-[94%]">
+            <div className="flex pl-3 flex-col gap-2 border-l border-app-primaryBorder w-[94%]">
               <TruthyRenderer value={!!item.items}>
                 {item.items && <SidebarNavRenderer data={item.items} />}
               </TruthyRenderer>

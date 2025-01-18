@@ -4,7 +4,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useSidebar } from "./ui/sidebar";
+import useStateStore from "@/store/state-store";
 
 export default function RightTooltip({
   children,
@@ -13,15 +13,16 @@ export default function RightTooltip({
   children: React.ReactNode;
   tooltip: string;
 }) {
-  const { state } = useSidebar();
+  const { leftSidebarOpen } = useStateStore();
   return (
     <TooltipProvider>
       <Tooltip delayDuration={1}>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent
+          className="bg-app-universal text-app-reverseUniversal"
           side="right"
           sideOffset={12}
-          hidden={state !== "collapsed"}
+          hidden={leftSidebarOpen}
         >
           <p>{tooltip}</p>
         </TooltipContent>

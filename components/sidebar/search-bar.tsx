@@ -1,5 +1,4 @@
 import { Input } from "@/components/ui/input";
-import { useSidebar } from "@/components/ui/sidebar";
 import { Search } from "lucide-react";
 import { Button } from "../ui/button";
 import TruthyRenderer from "../truthy-renderer";
@@ -7,37 +6,38 @@ import { cn } from "@/lib/utils";
 import { useRef } from "react";
 import { flushSync } from "react-dom";
 import RightTooltip from "../right-tooltip";
+import useStateStore from "@/store/state-store";
 
 export default function SearchBar() {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { state, toggleSidebar } = useSidebar();
+  const { leftSidebarOpen, toggleLeftSidebar } = useStateStore();
+
   return (
     <div
       className={cn(
-        "flex flex-row items-center border rounded-md",
-        state === "expanded" ? "border" : "border-transparent"
+        "flex flex-row items-center bg-app-tertiary border-none rounded-md p-2 gap-2",
+        leftSidebarOpen ? "bg-app-tertiary" : "bg-transparent"
       )}
     >
       <RightTooltip tooltip="Search">
-        <Button
+        <button
           onClick={() => {
             flushSync(() => {
-              if (state === "collapsed") {
-                toggleSidebar();
+              if (!leftSidebarOpen) {
+                toggleLeftSidebar();
               }
             });
             inputRef.current?.focus();
           }}
-          variant="ghost"
-          size="icon"
+          className="border-none bg-transparent p-0"
         >
-          <Search />
-        </Button>
+          <Search className="w-4 h-4" />
+        </button>
       </RightTooltip>
-      <TruthyRenderer value={state === "expanded"}>
-        <Input
+      <TruthyRenderer value={leftSidebarOpen}>
+        <input
           ref={inputRef}
-          className="border-none pl-0 outline-none shadow-none focus-visible:ring-0"
+          className="border-none flex-1 bg-transparent pl-0 outline-none shadow-none "
           placeholder="Search chats..."
         />
       </TruthyRenderer>

@@ -1,27 +1,26 @@
 "use client";
 
 import * as React from "react";
-import { Sidebar, SidebarContent, SidebarRail } from "@/components/ui/sidebar";
 import SearchBar from "./search-bar";
 import NewChatButton from "./new-chat-button";
 import CompanyLogoComponent from "./company-logo-component";
 import AppSidebarFooter from "./app-sidebar-footer";
 import { sidebarNavRendererData } from "./sidebar-constant-data";
 import SidebarNavRenderer from "./sidebar-nav-renderer";
+import { LeftSidebarRoot } from "./components";
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar() {
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <CompanyLogoComponent />
-      <SidebarContent>
-        <div className="px-2 flex flex-col gap-4 mt-4">
+    <LeftSidebarRoot>
+      <section className="flex flex-col gap-4 h-full">
+        <CompanyLogoComponent />
+        <main className="flex-1 flex flex-col gap-4 p-4 overflow-y-auto">
           <NewChatButton />
           <SearchBar />
           <SidebarNavRenderer data={sidebarNavRendererData} />
-        </div>
-      </SidebarContent>
-      <AppSidebarFooter />
-      <SidebarRail />
-    </Sidebar>
+        </main>
+        <AppSidebarFooter />
+      </section>
+    </LeftSidebarRoot>
   );
 }

@@ -8,20 +8,6 @@ const AppSidebar = dynamic(
   }
 );
 
-const SidebarProvider = dynamic(
-  () => import("@/components/ui/sidebar").then((mod) => mod.SidebarProvider),
-  {
-    ssr: false,
-  }
-);
-
-const SidebarInset = dynamic(
-  () => import("@/components/ui/sidebar").then((mod) => mod.SidebarInset),
-  {
-    ssr: false,
-  }
-);
-
 const RightSidebar = dynamic(
   () =>
     import("@/components/right-sidebar/right-sidebar").then(
@@ -45,15 +31,13 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-app-primary">
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <AppNavbar />
-          <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
-        </SidebarInset>
-        <RightSidebar />
-      </SidebarProvider>
+    <div className="bg-app-primary w-screen h-screen flex">
+      <AppSidebar />
+      <div className="flex-1 flex flex-col">
+        <AppNavbar />
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
+      </div>
+      <RightSidebar />
     </div>
   );
 }

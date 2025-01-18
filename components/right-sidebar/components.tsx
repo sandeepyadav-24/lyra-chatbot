@@ -25,7 +25,7 @@ export function RightSidebarRoot({ children }: RightSidebarRootProps) {
       <TruthyRenderer value={rightSidebarOpen}>
         <div
           title="Close Sidebar"
-          className="absolute top-0 left-0 w-[2px] h-full hover:cursor-e-resize bg-sidebar-accent hover:bg-sidebar-accent/50"
+          className="absolute top-0 left-0 w-[2px] h-full hover:cursor-e-resize bg-app-secondary hover:bg-app-secondary/50"
           onClick={() => {
             toggleRightSidebar();
           }}
