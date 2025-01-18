@@ -22,11 +22,10 @@ export default function SidebarNavRenderer({ data }: SidebarNavRendererProps) {
   const [isOpenNavMain, setIsOpenNavMain] = useState<string[] | null>(null);
 
   const handleClick = (title: string) => {
-    setIsOpenNavMain(
-      isOpenNavMain?.includes(title)
-        ? isOpenNavMain.filter((title) => title !== title)
-        : [...(isOpenNavMain || []), title]
-    );
+    const remaining = isOpenNavMain?.includes(title)
+      ? isOpenNavMain.filter((t) => t !== title)
+      : [...(isOpenNavMain || []), title];
+    setIsOpenNavMain(remaining);
   };
 
   const handleKeyDown = (
@@ -46,7 +45,11 @@ export default function SidebarNavRenderer({ data }: SidebarNavRendererProps) {
             tabIndex={0}
             onKeyDown={(event) => handleKeyDown(event, item.title)}
             className="flex flex-row w-full items-center gap-2 cursor-pointer hover:bg-app-secondary px-2 py-[6px] rounded-md"
-            onClick={() => handleClick(item.title)}
+            onClick={(event) => {
+              event.stopPropagation();
+              event.preventDefault();
+              handleClick(item.title);
+            }}
           >
             {item.icon && (
               <RightTooltip tooltip={item.title}>
@@ -78,11 +81,11 @@ export default function SidebarNavRenderer({ data }: SidebarNavRendererProps) {
           <TruthyRenderer
             value={!!isOpenNavMain?.includes(item.title) && leftSidebarOpen}
           >
-            <div className="flex pl-3 flex-col gap-2 border-l border-app-primaryBorder w-[94%]">
-              <TruthyRenderer value={!!item.items}>
+            <TruthyRenderer value={!!item.items}>
+              <div className="flex pl-3 flex-col gap-2 border-l border-app-primaryBorder w-[94%]">
                 {item.items && <SidebarNavRenderer data={item.items} />}
-              </TruthyRenderer>
-            </div>
+              </div>
+            </TruthyRenderer>
           </TruthyRenderer>
         </div>
       ))}
