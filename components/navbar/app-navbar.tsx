@@ -22,7 +22,7 @@ export function AppNavbar() {
           toggleSidebar={toggleLeftSidebar}
           isLeftSidebar={true}
         />
-        <TruthyRenderer value={leftSidebarOpen}>
+        <TruthyRenderer value={!leftSidebarOpen}>
           <p className="text-xl font-bold">{AppConstants.COMPANY_NAME}</p>
         </TruthyRenderer>
         <div className="ml-auto">
