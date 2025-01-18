@@ -60,6 +60,11 @@ const config: Config = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        app: {
+          primary: "var(--primary-color)",
+          secondary: "var(--secondary-color)",
+          textHover: "var(--text-hover)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

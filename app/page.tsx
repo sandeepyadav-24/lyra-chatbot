@@ -10,7 +10,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-6">
+    <div className="flex min-h-screen items-center justify-center bg-app-primary p-6">
       <LoginForm />
     </div>
   );

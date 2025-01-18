@@ -3,6 +3,7 @@ import TruthyRenderer from "../truthy-renderer";
 import { cn } from "@/lib/utils";
 import { CompanyLogo } from "@/icons/logo";
 import Link from "next/link";
+import { AppConstants } from "@/constants/constants";
 
 export default function CompanyLogoComponent() {
   const { state } = useSidebar();
@@ -15,7 +16,7 @@ export default function CompanyLogoComponent() {
         <CompanyLogo />
       </Link>
       <TruthyRenderer value={state === "expanded"}>
-        <h2 className="text-2xl font-bold ">Lyra</h2>
+        <h2 className="text-2xl font-bold ">{AppConstants.COMPANY_NAME}</h2>
       </TruthyRenderer>
     </SidebarHeader>
   );

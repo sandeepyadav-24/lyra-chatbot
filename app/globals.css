@@ -47,6 +47,9 @@ body {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --primary-color: #fff;
+    --secondary-color: rgba(245, 245, 245);
+    --text-hover: #8d8986;
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -81,6 +84,9 @@ body {
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --primary-color: #0e0d0d;
+    --secondary-color: #191819;
+    --text-hover: #8d8986;
   }
 }
 

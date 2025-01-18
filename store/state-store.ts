@@ -1,13 +1,38 @@
+"use client";
+
 import { create } from "zustand";
 
 type StateStore = {
-  count: number;
-  increment: () => void;
+  rightSidebarOpen: boolean;
+  setRightSidebarOpen: (value: boolean) => void;
+  toggleRightSidebar: () => void;
+};
+
+// Helper function to safely access localStorage
+const getInitialRightSidebarState = () => {
+  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem("rightSidebarOpen");
+    return stored ? JSON.parse(stored) : false;
+  }
+  return false;
 };
 
 const useStateStore = create<StateStore>((set) => ({
-  count: 0,
-  increment: () => set((state) => ({ count: state.count + 1 })),
+  rightSidebarOpen: getInitialRightSidebarState(),
+  setRightSidebarOpen: (value) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("rightSidebarOpen", JSON.stringify(value));
+    }
+    set({ rightSidebarOpen: value });
+  },
+  toggleRightSidebar: () =>
+    set((state) => {
+      const newState = !state.rightSidebarOpen;
+      if (typeof window !== "undefined") {
+        localStorage.setItem("rightSidebarOpen", JSON.stringify(newState));
+      }
+      return { rightSidebarOpen: newState };
+    }),
 }));
 
 export default useStateStore;

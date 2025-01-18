@@ -1,5 +1,3 @@
-import AppNavbar from "@/components/navbar/app-navbar";
-
 import dynamic from "next/dynamic";
 
 const AppSidebar = dynamic(
@@ -24,18 +22,38 @@ const SidebarInset = dynamic(
   }
 );
 
+const RightSidebar = dynamic(
+  () =>
+    import("@/components/right-sidebar/right-sidebar").then(
+      (mod) => mod.RightSidebar
+    ),
+  {
+    ssr: false,
+  }
+);
+
+const AppNavbar = dynamic(
+  () => import("@/components/navbar/app-navbar").then((mod) => mod.AppNavbar),
+  {
+    ssr: false,
+  }
+);
+
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <AppNavbar />
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
-      </SidebarInset>
-    </SidebarProvider>
+    <div className="bg-app-primary">
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <AppNavbar />
+          <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
+        </SidebarInset>
+        <RightSidebar />
+      </SidebarProvider>
+    </div>
   );
 }
