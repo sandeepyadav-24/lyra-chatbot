@@ -20,23 +20,38 @@ type SidebarNavRendererProps = {
 export default function SidebarNavRenderer({ data }: SidebarNavRendererProps) {
   const { leftSidebarOpen } = useStateStore();
   const [isOpenNavMain, setIsOpenNavMain] = useState<string[] | null>(null);
+
+  const handleClick = (title: string) => {
+    setIsOpenNavMain(
+      isOpenNavMain?.includes(title)
+        ? isOpenNavMain.filter((title) => title !== title)
+        : [...(isOpenNavMain || []), title]
+    );
+  };
+
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLDivElement>,
+    title: string
+  ) => {
+    if (event.key === "Enter") {
+      handleClick(title);
+    }
+  };
+
   return (
     <div className={"flex flex-col gap-3"}>
       {data.map((item) => (
         <div key={item.title} className="flex flex-col gap-2 items-end">
           <div
+            tabIndex={0}
+            onKeyDown={(event) => handleKeyDown(event, item.title)}
             className="flex flex-row w-full items-center gap-2 cursor-pointer hover:bg-app-secondary px-2 py-[6px] rounded-md"
-            onClick={() =>
-              setIsOpenNavMain(
-                isOpenNavMain?.includes(item.title)
-                  ? isOpenNavMain.filter((title) => title !== item.title)
-                  : [...(isOpenNavMain || []), item.title]
-              )
-            }
+            onClick={() => handleClick(item.title)}
           >
             {item.icon && (
               <RightTooltip tooltip={item.title}>
                 <button
+                  tabIndex={-1}
                   className={cn(
                     "border-none bg-transparent p-0 py-1",
                     !leftSidebarOpen ? "py-1" : "py-0"

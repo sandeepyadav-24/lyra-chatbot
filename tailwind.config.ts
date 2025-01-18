@@ -21,6 +21,8 @@ const config: Config = {
           tertiary: "var(--tertiary-color)",
           textPrimary: "var(--text-primary)",
           textSecondary: "var(--text-secondary)",
+          popup: "var(--popup-color)",
+          popupBorder: "var(--popup-border)",
         },
       },
     },

@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { cn } from "@/lib/utils";
 import useStateStore from "@/store/state-store";
 import { signOut } from "next-auth/react";
+import ChatWithTeam from "./chat-with-team";
 
 export default function AppSidebarFooter() {
   const { data: session } = useSession();
@@ -18,6 +19,7 @@ export default function AppSidebarFooter() {
 
   return (
     <footer className="flex flex-col gap-3 p-4">
+      <ChatWithTeam />
       <button
         className={cn(
           "gap-2 flex items-center hover:bg-app-secondary rounded-md",

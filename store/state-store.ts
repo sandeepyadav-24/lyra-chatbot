@@ -9,18 +9,20 @@ type StateStore = {
   leftSidebarOpen: boolean;
   setLeftSidebarOpen: (value: boolean) => void;
   toggleLeftSidebar: () => void;
+  chatWithTeamOpen: boolean;
+  setChatWithTeamOpen: (value: boolean) => void;
 };
 
-const getInitialSidebarState = (key: string) => {
+const getInitialState = (key: string, defaultValue: boolean = false) => {
   if (typeof window !== "undefined") {
     const stored = localStorage.getItem(key);
-    return stored ? JSON.parse(stored) : false;
+    return stored ? JSON.parse(stored) : defaultValue;
   }
-  return false;
+  return defaultValue;
 };
 
 const useStateStore = create<StateStore>((set) => ({
-  rightSidebarOpen: getInitialSidebarState("rightSidebarOpen"),
+  rightSidebarOpen: getInitialState("rightSidebarOpen"),
   setRightSidebarOpen: (value) => {
     if (typeof window !== "undefined") {
       localStorage.setItem("rightSidebarOpen", JSON.stringify(value));
@@ -35,7 +37,7 @@ const useStateStore = create<StateStore>((set) => ({
       }
       return { rightSidebarOpen: newState };
     }),
-  leftSidebarOpen: getInitialSidebarState("leftSidebarOpen"),
+  leftSidebarOpen: getInitialState("leftSidebarOpen"),
   setLeftSidebarOpen: (value) => {
     if (typeof window !== "undefined") {
       localStorage.setItem("leftSidebarOpen", JSON.stringify(value));
@@ -50,6 +52,13 @@ const useStateStore = create<StateStore>((set) => ({
       }
       return { leftSidebarOpen: newState };
     }),
+  chatWithTeamOpen: getInitialState("chatWithTeamOpen", true),
+  setChatWithTeamOpen: (value) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("chatWithTeamOpen", JSON.stringify(value));
+    }
+    set({ chatWithTeamOpen: value });
+  },
 }));
 
 export default useStateStore;

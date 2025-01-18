@@ -21,6 +21,7 @@ export default function SearchBar() {
     >
       <RightTooltip tooltip="Search">
         <button
+          tabIndex={-1}
           onClick={() => {
             flushSync(() => {
               if (!leftSidebarOpen) {

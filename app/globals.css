@@ -24,6 +24,8 @@ body {
     --tertiary-color: rgba(245, 245, 245);
     --text-primary: #000;
     --text-secondary: #000;
+    --popup-color: rgba(225, 225, 225, 0.75);
+    --popup-border: #8d8986;
   }
   .dark {
     --primary-color: #0e0d0d;
@@ -36,6 +38,8 @@ body {
     --tertiary-color: #212121;
     --text-primary: #e0e0df;
     --text-secondary: #8a8683;
+    --popup-color: #222222;
+    --popup-border: #212121;
   }
 }
 
