@@ -4,7 +4,6 @@ import { RightSidebarRoot } from "./components";
 import { SidebarHeader } from "./sidebar-header";
 import SimilaritySearchAnalysisPlan from "./similarity-search-analysis-plan";
 import { motion } from "framer-motion";
-
 export function RightSidebar() {
   return (
     <RightSidebarRoot>

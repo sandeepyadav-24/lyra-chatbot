@@ -2,37 +2,68 @@ import { motion } from "framer-motion";
 import TruthyRenderer from "../truthy-renderer";
 import useStateStore from "@/store/state-store";
 import { Button } from "../ui/button";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, PanelRightClose } from "lucide-react";
+import { useIsScreen } from "@/hooks/useIsScreen";
+import { cn } from "@/lib/utils";
+import { AppConstants } from "@/constants/constants";
 
 type RightSidebarRootProps = {
   children: React.ReactNode;
 };
 
 export function RightSidebarRoot({ children }: RightSidebarRootProps) {
-  const { rightSidebarOpen, toggleRightSidebar } = useStateStore();
+  const { rightSidebarOpen, toggleRightSidebar, setRightSidebarOpen } =
+    useStateStore();
+  const { fixedRightSidebar } = useIsScreen();
   return (
-    <motion.div
-      className="h-screen relative pl-1"
-      style={{
-        width: rightSidebarOpen ? "368px" : "0px",
-      }}
-      animate={{ width: rightSidebarOpen ? "368px" : "0px" }}
-      transition={{ duration: 0.3 }}
-      initial={{ width: rightSidebarOpen ? "368px" : "0px" }}
-      layout
-      layoutId="right-sidebar"
-    >
-      <TruthyRenderer value={rightSidebarOpen}>
+    <>
+      <motion.div
+        className={cn(
+          "h-screen relative pl-1 bg-app-primary",
+          fixedRightSidebar && "fixed top-0 right-0 z-10"
+        )}
+        style={{
+          width: rightSidebarOpen ? "368px" : "0px",
+        }}
+        animate={{ width: rightSidebarOpen ? "368px" : "0px" }}
+        transition={{ duration: 0.3 }}
+        initial={{ width: rightSidebarOpen ? "368px" : "0px" }}
+        layout
+        layoutId="right-sidebar"
+      >
+        <TruthyRenderer value={fixedRightSidebar && rightSidebarOpen}>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setRightSidebarOpen(false)}
+            className="absolute top-2 left-2 z-10"
+          >
+            <PanelRightClose className="w-4 h-4" />
+          </Button>
+        </TruthyRenderer>
+        <TruthyRenderer value={rightSidebarOpen}>
+          <div
+            title="Close Sidebar"
+            className="absolute top-0 left-0 w-[2px] h-full hover:cursor-e-resize bg-app-secondary hover:bg-app-secondary/50"
+            onClick={() => {
+              toggleRightSidebar();
+            }}
+          />
+        </TruthyRenderer>
+        <TruthyRenderer value={rightSidebarOpen}>{children}</TruthyRenderer>
+      </motion.div>
+      <TruthyRenderer value={fixedRightSidebar && rightSidebarOpen}>
         <div
-          title="Close Sidebar"
-          className="absolute top-0 left-0 w-[2px] h-full hover:cursor-e-resize bg-app-secondary hover:bg-app-secondary/50"
           onClick={() => {
-            toggleRightSidebar();
+            setRightSidebarOpen(false);
           }}
+          className={cn(
+            "fixed top-0 right-0 z-[9] w-full h-full",
+            AppConstants.GLASSMORPHISM_PROPERTY
+          )}
         />
       </TruthyRenderer>
-      <TruthyRenderer value={rightSidebarOpen}>{children}</TruthyRenderer>
-    </motion.div>
+    </>
   );
 }
 
