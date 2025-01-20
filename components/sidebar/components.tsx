@@ -21,7 +21,7 @@ function LeftSidebarRoot({ children }: LeftSidebarRootProps) {
     <>
       <motion.div
         className={cn(
-          "relative h-screen border-r border-app-secondary",
+          "relative h-[100dvh] border-r border-app-secondary",
           fixedLeftSidebar && "fixed top-0 left-0 z-10 bg-app-primary"
         )}
         style={{

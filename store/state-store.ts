@@ -22,7 +22,7 @@ const getInitialState = (key: string, defaultValue: boolean = false) => {
 };
 
 const useStateStore = create<StateStore>((set) => ({
-  rightSidebarOpen: getInitialState("rightSidebarOpen", true),
+  rightSidebarOpen: getInitialState("rightSidebarOpen", false),
   setRightSidebarOpen: (value) => {
     if (typeof window !== "undefined") {
       localStorage.setItem("rightSidebarOpen", JSON.stringify(value));
@@ -37,7 +37,7 @@ const useStateStore = create<StateStore>((set) => ({
       }
       return { rightSidebarOpen: newState };
     }),
-  leftSidebarOpen: getInitialState("leftSidebarOpen", true),
+  leftSidebarOpen: getInitialState("leftSidebarOpen", false),
   setLeftSidebarOpen: (value) => {
     if (typeof window !== "undefined") {
       localStorage.setItem("leftSidebarOpen", JSON.stringify(value));

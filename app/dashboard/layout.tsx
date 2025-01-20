@@ -31,7 +31,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-app-primary w-screen h-screen flex">
+    <div className="bg-app-primary w-screen h-[100dvh] flex">
       <AppSidebar />
       <div className="flex-1 flex flex-col">
         <AppNavbar />

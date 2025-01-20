@@ -19,7 +19,7 @@ export function RightSidebarRoot({ children }: RightSidebarRootProps) {
     <>
       <motion.div
         className={cn(
-          "h-screen relative pl-1 bg-app-primary",
+          "h-[100dvh] relative pl-1 bg-app-primary",
           fixedRightSidebar && "fixed top-0 right-0 z-10"
         )}
         style={{
