@@ -23,6 +23,7 @@ const config: Config = {
           textSecondary: "var(--text-secondary)",
           popup: "var(--popup-color)",
           popupBorder: "var(--popup-border)",
+          inputBg: "var(--input-bg)",
         },
       },
     },

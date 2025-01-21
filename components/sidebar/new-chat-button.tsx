@@ -5,9 +5,15 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import RightTooltip from "../right-tooltip";
 import useStateStore from "@/store/state-store";
+import { useRouter } from "next/navigation";
 
 export default function NewChatButton() {
   const { leftSidebarOpen } = useStateStore();
+  const router = useRouter();
+
+  function handleNewChat() {
+    router.push("/dashboard/new-chat");
+  }
   return (
     <Button
       variant={"outline"}
@@ -15,6 +21,7 @@ export default function NewChatButton() {
         "flex items-center justify-start gap-2 w-full px-[6px] transition-all duration-300 border-app-primaryBorder bg-app-secondary",
         leftSidebarOpen ? "px-4" : "px-[7px] border-none bg-transparent"
       )}
+      onClick={handleNewChat}
     >
       <RightTooltip tooltip="New Chat">
         <button tabIndex={-1} className="border-none bg-transparent p-0">
