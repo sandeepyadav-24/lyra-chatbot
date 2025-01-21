@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import useStateStore from "@/store/state-store";
 import { signOut } from "next-auth/react";
 import ChatWithTeam from "./chat-with-team";
+import SystemIsOnline from "./system-is-online";
 
 export default function AppSidebarFooter() {
   const { data: session } = useSession();
@@ -62,6 +63,7 @@ export default function AppSidebarFooter() {
           </div>
         </TruthyRenderer>
       </div>
+      <SystemIsOnline />
     </footer>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { AppConstants } from "@/constants/constants";
 import { CompanyLogo } from "@/icons/logo";
 import { signIn } from "next-auth/react";

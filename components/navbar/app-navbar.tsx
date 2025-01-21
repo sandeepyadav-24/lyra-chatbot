@@ -5,6 +5,7 @@ import useStateStore from "@/store/state-store";
 import TruthyRenderer from "../truthy-renderer";
 import { AppConstants } from "@/constants/constants";
 import SidebarToogleButton from "./sidebar-toogle-button";
+import { useSessionContext } from "@/provider/session-context";
 
 export function AppNavbar() {
   const {
@@ -13,6 +14,8 @@ export function AppNavbar() {
     toggleLeftSidebar,
     leftSidebarOpen,
   } = useStateStore();
+  const session = useSessionContext();
+  console.log(session);
 
   return (
     <header className="flex py-2 shrink-0 items-center gap-2 transition-[width,height] ease-linear ">
