@@ -63,7 +63,9 @@ export default function AppSidebarFooter() {
           </div>
         </TruthyRenderer>
       </div>
-      <SystemIsOnline />
+      <TruthyRenderer value={leftSidebarOpen}>
+        <SystemIsOnline />
+      </TruthyRenderer>
     </footer>
   );
 }

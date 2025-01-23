@@ -10,7 +10,7 @@ export default function SystemIsOnline() {
   const isOnline = data?.status === "healthy";
 
   return (
-    <p className="flex flex-row items-center gap-2 text-xs w-full">
+    <p className="flex flex-row items-center gap-2 text-xs w-full truncate">
       <span className="text-red-500">{isOnline ? "🟢" : "🔴"}</span>
       {isOnline ? "System is online" : "System is offline"}
     </p>
