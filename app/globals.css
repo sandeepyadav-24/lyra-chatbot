@@ -27,6 +27,7 @@ body {
     --popup-color: rgba(225, 225, 225, 0.75);
     --popup-border: #8d8986;
     --input-bg: #fff;
+    --plan-description: #000;
   }
   .dark {
     --primary-color: #0e0d0d;
@@ -42,6 +43,7 @@ body {
     --popup-color: #222222;
     --popup-border: #212121;
     --input-bg: #383838;
+    --plan-description: #838994;
   }
 }
 

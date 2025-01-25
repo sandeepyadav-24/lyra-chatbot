@@ -24,6 +24,7 @@ const config: Config = {
           popup: "var(--popup-color)",
           popupBorder: "var(--popup-border)",
           inputBg: "var(--input-bg)",
+          planDescription: "var(--plan-description)",
         },
       },
     },
