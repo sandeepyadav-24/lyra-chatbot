@@ -1,8 +1,11 @@
 "use client";
 
+import { useGetUsecasePlans } from "@/api-service/plans";
 import PlanAccordian from "./plan-accordian";
 import PlanRenderComponent from "./plan-render-component";
 import { Database, PackageOpen, Search } from "lucide-react";
+import PlanRenderLoader from "../loader/plan-render-loader";
+import UserPlans from "./user-plans";
 const searchUsecase = {
   header: {
     icon: PackageOpen,
@@ -43,11 +46,17 @@ const sqlUsecase = {
 };
 
 export default function MainSection() {
+  const { data, isLoading } = useGetUsecasePlans();
+  if (isLoading) return <PlanRenderLoader />;
+  console.log(data);
   return (
     <section className="flex flex-col gap-2">
       <PlanRenderComponent
-        header={searchUsecase.header}
-        searchCard={searchUsecase.searchCard}
+        header={{
+          icon: PackageOpen,
+          title: "Usecase Plans",
+        }}
+        plans={data?.plans!}
       />
       <PlanAccordian
         title="Plan: 1"
@@ -57,14 +66,7 @@ export default function MainSection() {
         title="Plan: 3"
         description="The success of this plan lies in enhancing your business data."
       />
-      <PlanRenderComponent
-        header={sqlUsecase.header}
-        searchCard={sqlUsecase.searchCard}
-      />
-      <PlanAccordian
-        title="Plan: 4"
-        description="SQL optimizer for collecting data and cleaning PDF"
-      />
+      <UserPlans />
     </section>
   );
 }

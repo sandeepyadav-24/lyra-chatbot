@@ -14,18 +14,21 @@ export type PlansResponseType = {
   }[];
 };
 
-export const getPlans = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/plans`, {
-    method: "GET",
-  });
+export const getPlans = async (userId: string, isActive: boolean = false) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/plans/${userId}?is_active=${isActive}`,
+    {
+      method: "GET",
+    }
+  );
   const data = await response.json();
   return data as PlansResponseType;
 };
 
-export const useGetPlans = () => {
+export const useGetPlans = (userId: string, isActive: boolean) => {
   return useQuery({
-    queryKey: ["plans"],
-    queryFn: () => getPlans(),
+    queryKey: ["plans", userId, isActive],
+    queryFn: () => getPlans(userId, isActive),
   });
 };
 

@@ -28,6 +28,7 @@ body {
     --popup-border: #8d8986;
     --input-bg: #fff;
     --plan-description: #000;
+    --plan-loader-color: #8d8986;
   }
   .dark {
     --primary-color: #0e0d0d;
@@ -44,6 +45,7 @@ body {
     --popup-border: #212121;
     --input-bg: #383838;
     --plan-description: #838994;
+    --plan-loader-color: #838994;
   }
 }
 
