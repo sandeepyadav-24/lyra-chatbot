@@ -1,72 +1,64 @@
 "use client";
 
-import { useGetUsecasePlans } from "@/api-service/plans";
-import PlanAccordian from "./plan-accordian";
+import { useGetPlans, useGetUsecasePlans } from "@/api-service/plans";
 import PlanRenderComponent from "./plan-render-component";
-import { Database, PackageOpen, Search } from "lucide-react";
+import { PackageOpen } from "lucide-react";
 import PlanRenderLoader from "../loader/plan-render-loader";
-import UserPlans from "./user-plans";
-const searchUsecase = {
-  header: {
-    icon: PackageOpen,
-    title: "Similarity Search Use Case",
-  },
-  searchCard: [
-    {
-      icon: Search,
-      title: "Similarity Search Analysis Plan",
-      description: "Search and build 3D models for understanding ...",
-    },
-    {
-      icon: Search,
-      title: "Similarity Search Plan 2",
-      description:
-        "This dive deeps into understanding your business data to evaluate its needs and execute clear objectives....",
-    },
-  ],
-};
-
-const sqlUsecase = {
-  header: {
-    icon: PackageOpen,
-    title: "SQL Use Case",
-  },
-  searchCard: [
-    {
-      icon: Database,
-      title: "SQL Use Case 1",
-      description: "Methodically update your data from a CS....",
-    },
-    {
-      icon: Database,
-      title: "SQL Use Case 2",
-      description: "Methodically update your data from a CS...",
-    },
-  ],
-};
+import ErrorComponent from "../error-component/error-component";
+import { useSearchParams } from "next/navigation";
+import TruthyRenderer from "../truthy-renderer";
+import PlanAccordianLoader from "../loader/plan-accordian-loader";
+import PlanAccordian from "./plan-accordian";
 
 export default function MainSection() {
+  const searchParams = useSearchParams();
+  const userId = searchParams.get("user_id");
   const { data, isLoading } = useGetUsecasePlans();
+  const { data: plansData, isLoading: plansLoading } = useGetPlans(
+    userId!,
+    false
+  );
   if (isLoading) return <PlanRenderLoader />;
-  console.log(data);
+  if ((data as unknown as { errorCode: string }).errorCode)
+    return (
+      <ErrorComponent
+        error={(data as unknown as { message: string }).message}
+      />
+    );
+
   return (
     <section className="flex flex-col gap-2">
       <PlanRenderComponent
         header={{
           icon: PackageOpen,
           title: "Usecase Plans",
+          planCount: data?.plan_count!,
         }}
         plans={data?.plans!}
       />
-      <PlanAccordian
-        title="Plan: 1"
-        description="Answer the frequently asked question in a simple sentence, a longish paragraph, or even in a list."
-      />
-      <PlanAccordian
-        title="Plan: 3"
-        description="The success of this plan lies in enhancing your business data."
-      />
-      <UserPlans />
+
+      <TruthyRenderer value={plansLoading}>
+        <PlanAccordianLoader />
+      </TruthyRenderer>
+
+      <TruthyRenderer
+        value={!!(plansData as unknown as { errorCode: string }).errorCode}
+      >
+        <ErrorComponent
+          error={(plansData as unknown as { message: string }).message}
+        />
+      </TruthyRenderer>
+
+      <TruthyRenderer value={!!plansData && plansData?.plans.length > 0}>
+        {plansData?.plans.map((plan) => (
+          <PlanAccordian
+            key={plan.id}
+            title={plan.plan_name}
+            description={plan.description}
+            planId={plan.id}
+          />
+        ))}
+      </TruthyRenderer>
     </section>
   );
 }

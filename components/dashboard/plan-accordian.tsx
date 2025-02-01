@@ -1,36 +1,41 @@
 "use client";
 
-import { ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
-import TruthyRenderer from "../truthy-renderer";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useRouter, useSearchParams } from "next/navigation";
+import useStateStore from "@/store/state-store";
 
 type PlanAccordianProps = {
   title: string;
   description: string;
+  planId: string;
 };
 export default function PlanAccordian({
   title,
   description,
+  planId,
 }: PlanAccordianProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { setRightSidebarOpen } = useStateStore();
   return (
-    <div className="flex flex-col gap-2 border border-app-primaryBorder rounded-lg p-2">
-      <header
-        className="flex items-center justify-between cursor-pointer"
-        onClick={() => setIsOpen(!isOpen)}
-      >
+    <div
+      onClick={() => {
+        router.push(`/dashboard?${searchParams.toString()}&plan_id=${planId}`);
+        setRightSidebarOpen(true);
+      }}
+      className="flex flex-col gap-2 border border-app-primaryBorder rounded-lg p-2"
+    >
+      <header className="flex items-center justify-between cursor-pointer">
         <p className="text-app-textPrimary font-semibold">{title}</p>
         <ChevronDown
           className={cn(
             "w-4 h-4 transition-all duration-300 rotate-90",
-            isOpen && "rotate-0"
+            "rotate-0"
           )}
         />
       </header>
-      <TruthyRenderer value={isOpen}>
-        <p className="text-app-textSecondary">{description}</p>
-      </TruthyRenderer>
+      <p className="text-app-textSecondary">{description}</p>
     </div>
   );
 }

@@ -2,15 +2,15 @@
 
 import { cn } from "@/lib/utils";
 import { FileMinus, FilePlus, LucideIcon, Play, Search } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import TruthyRenderer from "../truthy-renderer";
-import useStateStore from "@/store/state-store";
 import { UsecasePlansResponseType } from "@/api-service/plans";
 
 type PlanRenderComponentProps = {
   header: {
     icon: LucideIcon;
     title: string;
+    planCount: number;
   };
   plans: UsecasePlansResponseType["plans"];
 };
@@ -20,13 +20,16 @@ export default function PlanRenderComponent({
   plans,
 }: PlanRenderComponentProps) {
   const router = useRouter();
-  const { setRightSidebarOpen } = useStateStore();
+  const searchParams = useSearchParams();
+  const userId = searchParams.get("user_id");
 
   return (
     <div className="flex flex-col gap-4 py-4">
       <div className="flex items-center gap-2">
         <header.icon />
-        <h1>{header.title}</h1>
+        <h1>
+          {header.title} ({header.planCount})
+        </h1>
       </div>
       <div className="flex gap-4 max-[680px]:flex-col">
         {plans?.map((card, index) => {
@@ -35,17 +38,16 @@ export default function PlanRenderComponent({
               key={index}
               className={cn(
                 "flex-1 flex flex-col items-center gap-2 border border-app-primaryBorder rounded-lg p-4",
-                card?.is_active && "bg-app-buttonActive"
+                userId === card?.user_id && "bg-app-buttonActive"
               )}
             >
               <div className="w-full flex items-center gap-2">
                 <Search className="w-7 h-7" />
                 <div className="flex items-center gap-2 ml-auto">
-                  <TruthyRenderer value={!card?.is_active}>
+                  <TruthyRenderer value={userId !== card?.user_id}>
                     <button
                       onClick={() => {
-                        router.push(`/dashboard?plan-id=${card?.id}`);
-                        setRightSidebarOpen(true);
+                        router.push(`/dashboard?user_id=${card?.user_id}`);
                       }}
                       className="flex items-center gap-2 bg-app-buttonActive rounded-full px-2 py-1"
                     >
@@ -53,10 +55,10 @@ export default function PlanRenderComponent({
                       <p>Run</p>
                     </button>
                   </TruthyRenderer>
-                  <TruthyRenderer value={card?.is_active}>
+                  <TruthyRenderer value={userId === card?.user_id}>
                     <FileMinus className="w-8 h-8 " />
                   </TruthyRenderer>
-                  <TruthyRenderer value={!card?.is_active}>
+                  <TruthyRenderer value={userId !== card?.user_id}>
                     <FilePlus className="w-8 h-8 " />
                   </TruthyRenderer>
                 </div>
@@ -68,7 +70,7 @@ export default function PlanRenderComponent({
                 <p
                   className={cn(
                     "text-app-textSecondary",
-                    card?.is_active && "text-app-textPrimary"
+                    userId === card?.user_id && "text-app-textPrimary"
                   )}
                 >
                   {card?.description}

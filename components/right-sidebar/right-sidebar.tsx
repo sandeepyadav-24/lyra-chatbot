@@ -2,8 +2,8 @@
 
 import { RightSidebarRoot } from "./components";
 import { SidebarHeader } from "./sidebar-header";
-import SimilaritySearchAnalysisPlan from "./similarity-search-analysis-plan";
 import { motion } from "framer-motion";
+import StepRenderer from "./step-renderer";
 export function RightSidebar() {
   return (
     <RightSidebarRoot>
@@ -18,7 +18,7 @@ export function RightSidebar() {
         </h2>
         <div className="w-full flex-1 bg-app-secondary p-5 flex flex-col gap-8 rounded-lg overflow-y-auto">
           <SidebarHeader />
-          <SimilaritySearchAnalysisPlan />
+          <StepRenderer />
         </div>
       </motion.div>
     </RightSidebarRoot>

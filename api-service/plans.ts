@@ -29,27 +29,37 @@ export const useGetPlans = (userId: string, isActive: boolean) => {
   return useQuery({
     queryKey: ["plans", userId, isActive],
     queryFn: () => getPlans(userId, isActive),
+    enabled: !!userId,
   });
 };
 
 export type UsecasePlansResponseType = {
-  plans: {
-    id: string;
-    user_id: string;
-    plan_name: string;
-    description: string;
-    is_active: boolean;
-    is_usecase: boolean;
-    created_at: string;
-    updated_at: string;
-    metadata: null;
-  }[];
+  plan_count: 1;
+  plans: [
+    {
+      created_at: string;
+      description: string;
+      id: string;
+      image_animation_status: string;
+      is_active: boolean;
+      is_known_flow: boolean;
+      plan_name: string;
+      plan_type: string;
+      progress_tracking: string;
+      status: string;
+      updated_at: string;
+      user_id: string;
+    }
+  ];
 };
 
 export const getUsecasePlans = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/usecases`, {
-    method: "GET",
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/plans/usecases`,
+    {
+      method: "GET",
+    }
+  );
   const data = await response.json();
   return data as UsecasePlansResponseType;
 };
@@ -92,13 +102,22 @@ export const useGetExecutionsPlans = (planId: string) => {
 };
 
 export type PlanStepsResponseType = {
-  steps: {
-    id: string;
-    plan_id: string;
-    step_number: number;
-    description: string;
-    metadata: {};
-  }[];
+  step_count: number;
+  steps: [
+    {
+      created_at: string;
+      dependencies: [];
+      id: string;
+      is_completed: boolean;
+      is_critical: boolean;
+      plan_id: string;
+      step_details: string;
+      step_name: string;
+      step_order: number;
+      step_type: string;
+      updated_at: string;
+    }
+  ];
 };
 
 export const getPlanSteps = async (planId: string) => {
