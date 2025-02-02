@@ -26,6 +26,7 @@ const config: Config = {
           inputBg: "var(--input-bg)",
           planDescription: "var(--plan-description)",
           planLoader: "var(--plan-loader-color)",
+          chatBg: "var(--chat-bg)",
         },
       },
     },

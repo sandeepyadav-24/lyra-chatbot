@@ -29,6 +29,7 @@ body {
     --input-bg: #fff;
     --plan-description: #000;
     --plan-loader-color: #8d8986;
+    --chat-bg: #fff;
   }
   .dark {
     --primary-color: #0e0d0d;
@@ -46,6 +47,7 @@ body {
     --input-bg: #383838;
     --plan-description: #838994;
     --plan-loader-color: #9c9c9c;
+    --chat-bg: #191918;
   }
 }
 

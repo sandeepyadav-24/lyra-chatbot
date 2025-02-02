@@ -6,6 +6,8 @@ import TruthyRenderer from "../truthy-renderer";
 import { AppConstants } from "@/constants/constants";
 import SidebarToogleButton from "./sidebar-toogle-button";
 import UnknownFlowButton from "./unknown-flow-button";
+import SettingsDropdown from "./settings-dropdown";
+import Breadcrumbs from "./breadcrumbs";
 
 export function AppNavbar() {
   const {
@@ -26,8 +28,13 @@ export function AppNavbar() {
         <TruthyRenderer value={!leftSidebarOpen}>
           <p className="text-xl font-bold">{AppConstants.COMPANY_NAME}</p>
         </TruthyRenderer>
-        <UnknownFlowButton isSidebarOpen={!leftSidebarOpen} />
-        <div className="ml-auto">
+        <UnknownFlowButton
+          isSidebarOpen={!leftSidebarOpen}
+          className="max-[440px]:hidden"
+        />
+        <Breadcrumbs className="ml-2 max-[800px]:hidden" />
+        <div className="ml-auto flex items-center gap-2">
+          <SettingsDropdown />
           <DarkModeToggle />
         </div>
         <SidebarToogleButton

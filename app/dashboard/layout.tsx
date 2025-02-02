@@ -1,3 +1,4 @@
+import Breadcrumbs from "@/components/navbar/breadcrumbs";
 import dynamic from "next/dynamic";
 
 const AppSidebar = dynamic(
@@ -35,6 +36,9 @@ export default function DashboardLayout({
       <AppSidebar />
       <div className="flex-1 flex flex-col">
         <AppNavbar />
+        <div className="min-[800px]:hidden px-6 py-3">
+          <Breadcrumbs />
+        </div>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 overflow-y-auto">
           {children}
         </div>

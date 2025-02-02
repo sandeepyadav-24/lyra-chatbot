@@ -1,6 +1,12 @@
 "use client";
 
 import { create } from "zustand";
+import { chatDummyData } from "./dummy-data";
+
+type ChatMessage = {
+  message: string;
+  messageType: "user" | "assistant";
+};
 
 type StateStore = {
   rightSidebarOpen: boolean;
@@ -11,6 +17,8 @@ type StateStore = {
   toggleLeftSidebar: () => void;
   chatWithTeamOpen: boolean;
   setChatWithTeamOpen: (value: boolean) => void;
+  chatMessages: ChatMessage[];
+  setChatMessages: (value: ChatMessage[]) => void;
 };
 
 const getInitialState = (key: string, defaultValue: boolean = false) => {
@@ -58,6 +66,10 @@ const useStateStore = create<StateStore>((set) => ({
       localStorage.setItem("chatWithTeamOpen", JSON.stringify(value));
     }
     set({ chatWithTeamOpen: value });
+  },
+  chatMessages: (chatDummyData as ChatMessage[]) || [],
+  setChatMessages: (value) => {
+    set({ chatMessages: value });
   },
 }));
 
