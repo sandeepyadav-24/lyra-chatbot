@@ -16,7 +16,7 @@ export type PlansResponseType = {
 
 export const getPlans = async (userId: string, isActive: boolean = false) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/plans/${userId}?is_active=${isActive}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/plans?user_id=${userId}&is_active=${isActive}`,
     {
       method: "GET",
     }
@@ -122,7 +122,7 @@ export type PlanStepsResponseType = {
 
 export const getPlanSteps = async (planId: string) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/plans/${planId}/steps`,
+    `${process.env.NEXT_PUBLIC_API_URL}/plans/${planId}`,
     {
       method: "GET",
     }

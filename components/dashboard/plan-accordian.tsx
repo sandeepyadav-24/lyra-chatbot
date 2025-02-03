@@ -21,12 +21,14 @@ export default function PlanAccordian({
   return (
     <div
       onClick={() => {
-        router.push(`/dashboard?${searchParams.toString()}&plan_id=${planId}`);
+        router.push(
+          `/dashboard?${searchParams.toString()}&plan_id=${planId}&plan_name=${title}`
+        );
         setRightSidebarOpen(true);
       }}
-      className="flex flex-col gap-2 border border-app-primaryBorder rounded-lg p-2"
+      className="flex flex-col gap-2 border border-app-primaryBorder rounded-lg p-2 cursor-pointer"
     >
-      <header className="flex items-center justify-between cursor-pointer">
+      <header className="flex items-center justify-between ">
         <p className="text-app-textPrimary font-semibold">{title}</p>
         <ChevronDown
           className={cn(

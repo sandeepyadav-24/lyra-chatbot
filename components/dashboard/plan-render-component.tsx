@@ -37,7 +37,7 @@ export default function PlanRenderComponent({
             <div
               key={index}
               className={cn(
-                "flex-1 flex flex-col items-center gap-2 border border-app-primaryBorder rounded-lg p-4",
+                "flex-1 flex flex-col items-center gap-2 border border-app-primaryBorder flex-wrap min-w-[250px] rounded-lg p-4",
                 userId === card?.user_id && "bg-app-buttonActive"
               )}
             >

@@ -19,10 +19,10 @@ export default function MainSection() {
     false
   );
   if (isLoading) return <PlanRenderLoader />;
-  if ((data as unknown as { errorCode: string }).errorCode)
+  if ((data as unknown as { errorCode: string })?.errorCode)
     return (
       <ErrorComponent
-        error={(data as unknown as { message: string }).message}
+        error={(data as unknown as { message: string })?.message}
       />
     );
 
@@ -42,15 +42,15 @@ export default function MainSection() {
       </TruthyRenderer>
 
       <TruthyRenderer
-        value={!!(plansData as unknown as { errorCode: string }).errorCode}
+        value={!!(plansData as unknown as { errorCode: string })?.errorCode}
       >
         <ErrorComponent
-          error={(plansData as unknown as { message: string }).message}
+          error={(plansData as unknown as { message: string })?.message}
         />
       </TruthyRenderer>
 
-      <TruthyRenderer value={!!plansData && plansData?.plans.length > 0}>
-        {plansData?.plans.map((plan) => (
+      <TruthyRenderer value={!!plansData && plansData?.plans?.length > 0}>
+        {plansData?.plans?.map((plan) => (
           <PlanAccordian
             key={plan.id}
             title={plan.plan_name}

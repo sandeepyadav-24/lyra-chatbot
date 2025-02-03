@@ -1,5 +1,4 @@
 import { useSearchParams } from "next/navigation";
-import { similaritySearchAnalysisPlanData } from "./constant-data";
 import { useGetPlanSteps } from "@/api-service/plans";
 import PlanStepsLoader from "../loader/plan-steps-loader";
 import { Dot, FilePlus } from "lucide-react";
@@ -8,24 +7,23 @@ import ErrorComponent from "../error-component/error-component";
 export default function StepRenderer() {
   const searchParams = useSearchParams();
   const planId = searchParams.get("plan_id");
-  const { data: planStepsData, isLoading: planStepsLoading } = useGetPlanSteps(
-    planId!
-  );
-  if (planStepsLoading) {
+  const planName = searchParams.get("plan_name");
+  const { data: stepsData, isLoading: stepsLoading } = useGetPlanSteps(planId!);
+  if (stepsLoading) {
     return <PlanStepsLoader />;
   }
-  if ((planStepsData as unknown as { errorCode: string })?.errorCode) {
+  if ((stepsData as unknown as { errorCode: string })?.errorCode) {
     return (
       <ErrorComponent
-        error={(planStepsData as unknown as { message: string })?.message}
+        error={(stepsData as unknown as { message: string })?.message}
       />
     );
   }
   return (
     <div className="flex flex-col gap-4">
-      <p className="truncate">Similarity Search Analysis Plan</p>
+      <p className="truncate">{planName}</p>
       <div className="flex flex-col gap-4">
-        {planStepsData?.steps?.map((item) => (
+        {stepsData?.steps?.map((item) => (
           <div key={item.id} className="flex items-center gap-2 w-full">
             <div className="w-5 h-5">
               <Dot size={24} />
