@@ -140,30 +140,36 @@ export const useGetPlanSteps = (planId: string) => {
 };
 
 export type CreatePlanPayloadType = {
-  plan_name: string;
   description: string;
-  user_id: string;
-  steps: {
-    step_number: number;
-    description: string;
-    metadata: {};
-  }[];
-  metadata: {};
+  is_known_flow: boolean;
   is_usecase: boolean;
+  plan_name: string;
+  plan_type: string;
+  steps: {
+    dependencies: [];
+    is_critical: boolean;
+    step_details: string;
+    step_name: string;
+    step_order: number;
+    step_type: string;
+    tool_id: string;
+  }[];
+  user_id: string;
 };
 
 export type CreatePlanResponseType = {
-  plan: {
-    id: string;
-    user_id: string;
-    plan_name: string;
-    description: string;
-    is_active: boolean;
-    is_usecase: boolean;
-    created_at: string;
-    updated_at: string;
-    metadata: {};
-  };
+  created_at: string;
+  description: string;
+  id: string;
+  image_animation_status: string;
+  is_active: boolean;
+  is_known_flow: boolean;
+  plan_name: string;
+  plan_type: string;
+  progress_tracking: string;
+  status: string;
+  updated_at: string;
+  user_id: string;
 };
 
 export const createPlan = async (payload: CreatePlanPayloadType) => {
