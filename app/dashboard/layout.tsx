@@ -1,3 +1,4 @@
+"use client";
 import Breadcrumbs from "@/components/navbar/breadcrumbs";
 import dynamic from "next/dynamic";
 
