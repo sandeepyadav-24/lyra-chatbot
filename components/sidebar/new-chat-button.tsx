@@ -1,6 +1,6 @@
 import { ChevronRight, MessageSquarePlus } from "lucide-react";
 import TruthyRenderer from "../truthy-renderer";
-import { Button } from "../ui/button";
+import { Button } from "../ui/button"; // Your custom Button component
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import RightTooltip from "../right-tooltip";
@@ -14,8 +14,9 @@ export default function NewChatButton() {
   function handleNewChat() {
     router.push("/dashboard/new-chat");
   }
+
   return (
-    <Button
+    <Button // Use your custom Button component directly
       variant={"outline"}
       className={cn(
         "flex items-center justify-start gap-2 w-full px-[6px] transition-all duration-300 border-app-primaryBorder bg-app-secondary",
@@ -24,9 +25,10 @@ export default function NewChatButton() {
       onClick={handleNewChat}
     >
       <RightTooltip tooltip="New Chat">
-        <button tabIndex={-1} className="border-none bg-transparent p-0">
+        {/* Use a <span> or other non-button element for the icon */}
+        <span className="inline-flex items-center justify-center"> {/* Added for centering */}
           <MessageSquarePlus width={16} height={16} />
-        </button>
+        </span>
       </RightTooltip>
 
       <TruthyRenderer value={leftSidebarOpen}>

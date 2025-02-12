@@ -13,9 +13,14 @@ export const createSession = async () => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
+    // console.log("Session created successfully:", data);
+
+    localStorage.setItem('sessionId', data.session_id);
+    
     return data;
   } catch (error) {
     console.error("Failed to create session:", error);
+    
     throw error;
   }
 };

@@ -19,10 +19,14 @@ export default function Preferences() {
             <Label htmlFor="notifications">Enable notifications</Label>
             <Switch id="notifications" />
           </div>
-          <Button type="submit" className="buttonActive">Save Preferences</Button>
+          {/* Wrap the button in a div to avoid nesting issues */}
+          <div>
+            <Button type="submit" asChild>
+              <span>Save Preferences</span> 
+            </Button>
+          </div>
         </form>
       </CardContent>
     </Card>
   )
 }
-
