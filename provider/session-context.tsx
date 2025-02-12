@@ -1,3 +1,4 @@
+
 "use client";
 
 import { createSession } from "@/api-service/create-session";
@@ -23,18 +24,31 @@ export default function SessionContextProvider({
 }) {
   const { status } = useSession();
   const [session, setSession] = useState<SessionType | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (status === "authenticated") {
-      createSession().then((session) => {
-        setSession(session);
-      });
+      setLoading(true);
+      createSession()
+        .then((session) => {
+          setSession(session);
+          setError(null);
+        })
+        .catch((error) => {
+          console.error("Failed to create session:", error);
+          setError("Failed to create session");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   }, [status]);
 
   return (
     <SessionContext.Provider value={session}>
-      {children}
+      {loading ? <p>Loading...</p> : children}
+      {error && <p>{error}</p>}
     </SessionContext.Provider>
   );
 }
