@@ -4,12 +4,15 @@ import { Button } from "@/components/ui/button";
 import { AppConstants } from "@/constants/constants";
 import { CompanyLogo } from "@/icons/logo";
 import { signIn } from "next-auth/react";
+import {createSession} from "@/api-service/create-session";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
   const handleLogin = async () => {
+   await createSession();
+    
     await signIn("google", {
       redirectTo: window.location.origin + "/dashboard",
     });
@@ -61,3 +64,6 @@ export function LoginForm({
     </div>
   );
 }
+
+
+

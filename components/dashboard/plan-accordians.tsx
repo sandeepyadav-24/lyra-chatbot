@@ -46,8 +46,10 @@ export default function PlanAccordians() {
 
   return (
     <div className="flex flex-col gap-2">
-      {plans?.map((plan) => (
+      {plans?.map((plan,index) => (
         <div
+
+          key={index}
           onClick={() => {
             router.push(
               `/dashboard?${searchParams.toString()}&plan=${objectToBase64(
