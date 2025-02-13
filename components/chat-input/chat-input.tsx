@@ -26,7 +26,7 @@ export default function ChatInput({
   return (
     <div
       className={cn(
-        "w-[600px] max-[855px]:w-full bg-app-inputBg mx-auto rounded-full flex items-center gap-3 p-3 shadow",
+        "w-[730px] max-[855px]:w-full bg-app-inputBg mx-auto rounded-full flex items-center gap-3 p-3 shadow  ",
         leftSidebarOpen && rightSidebarOpen
           ? "max-[1300px]:w-full"
           : "max-[855px]:w-full"

@@ -55,6 +55,28 @@ export default function StepRenderer() {
       />
     );
   }
+
+  const planRuns = [
+    {
+      id: 1,
+      description: "Parse the specified column as a datetime object...",
+    },
+    {
+      id: 2,
+      description:
+        "Parse the specified column as a datetime object and set it as the index",
+    },
+    {
+      id: 3,
+      description:
+        "Parse the specified column as a datetime object and set it as the index",
+    },
+    {
+      id: 4,
+      description:
+        "Parse the specified column as a datetime object and set it as the index",
+    },
+  ];
   return (
     <div className="flex flex-col gap-4">
       <p className="truncate">{activePlan?.plan_name}</p>
@@ -73,6 +95,22 @@ export default function StepRenderer() {
             </button>
           </div>
         ))}
+      </div>
+      <div className="mt-8">
+        <h3 className="text-base font-bold mb-4">All Plans Runs</h3>
+        <div className="flex flex-col gap-4">
+          {planRuns.map((run) => (
+            <div key={run.id} className="flex items-center gap-2 w-full">
+              <div className="w-5 h-5">
+                <Dot size={24} />
+              </div>
+              <div className="flex flex-col gap-2 p-3 border border-app-primaryBorder rounded-lg flex-1">
+                <p className="font-semibold">Latest Plan Run</p>
+                <p>{run.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
