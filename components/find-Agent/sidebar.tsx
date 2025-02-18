@@ -10,7 +10,7 @@ interface SidebarProps {
 
 export default function Sidebar({ activeItem, onItemSelect }: SidebarProps) {
   return (
-    <div className="w-64 bg-gray-50 h-screen p-4 border-r">
+    <div className="w-64 h-screen p-4 border-r">
       <div className="mb-8">
         <h1 className="text-xl font-semibold mb-4">GE</h1>
         <p className="text-sm text-gray-500">Unit Expansions</p>

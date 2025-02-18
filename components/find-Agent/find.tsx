@@ -6,7 +6,7 @@ import AgentCard from "@/components/find-Agent/agent-card";
 import SearchBar from "@/components/find-Agent/search-bar";
 import { agents } from "@/components/find-Agent/data";
 
-export default function Page() {
+export default function find() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
