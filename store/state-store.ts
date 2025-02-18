@@ -18,7 +18,9 @@ type StateStore = {
   chatWithTeamOpen: boolean;
   setChatWithTeamOpen: (value: boolean) => void;
   chatMessages: ChatMessage[];
-  setChatMessages: (value: ChatMessage[]) => void;
+  setChatMessages: (
+    value: ChatMessage[] | ((prev: ChatMessage[]) => ChatMessage[])
+  ) => void;
 };
 
 const getInitialState = (key: string, defaultValue: boolean = false) => {
@@ -67,10 +69,15 @@ const useStateStore = create<StateStore>((set) => ({
     }
     set({ chatWithTeamOpen: value });
   },
-  chatMessages: (chatDummyData as ChatMessage[]) || [],
+  chatMessages: [],
   setChatMessages: (value) => {
-    set({ chatMessages: value });
+    set((state) => ({
+      chatMessages:
+        typeof value === "function" ? value(state.chatMessages) : value,
+    }));
   },
 }));
 
 export default useStateStore;
+
+//

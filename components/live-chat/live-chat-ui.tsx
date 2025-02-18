@@ -50,13 +50,13 @@ const LiveChatUI = () => {
             key={message.id}
             className={`absolute flex items-center px-4 py-2 ${message.color} text-white rounded-2xl max-w-xs ${message.position}`}
           >
-            <Image
+            {/**<Image
               src={message.avatar}
               alt={message.sender}
               width={30}
               height={30}
               className="rounded-full mr-2"
-            />
+            /> */}
             <div>
               <div className="font-semibold">{message.sender}</div>
               {message.text && <p className="text-sm">{message.text}</p>}
