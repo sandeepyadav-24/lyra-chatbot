@@ -22,7 +22,7 @@ export const agents: Agent[] = [
     id: "1",
     name: "John Carter",
     role: "Web Developer",
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://i0.wp.com/htmlcodex.com/wp-content/uploads/2020/09/developer-portfolio-template.jpg?resize=740%2C463&ssl=1",
     stats: {
       projects: 12,
       clients: 150,

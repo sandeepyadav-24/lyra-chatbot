@@ -22,7 +22,7 @@ export default function find() {
   return (
     <div className="flex min-h-screen">
       <Sidebar activeItem={activeCategory} onItemSelect={setActiveCategory} />
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-8 overflow-y-auto">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-bold mb-6">Find Your Agent</h1>
           <SearchBar onSearch={setSearchQuery} />
@@ -33,6 +33,7 @@ export default function find() {
           </div>
         </div>
       </main>
+
     </div>
   );
 }
