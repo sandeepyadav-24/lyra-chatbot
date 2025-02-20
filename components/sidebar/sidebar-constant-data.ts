@@ -8,6 +8,8 @@ import {
   RefreshCcw,
   LayoutDashboard,
   Workflow,
+  TrendingUp,
+  User
 } from "lucide-react";
 import { SidebarNavRendererItem } from "./sidebar-nav-renderer";
 
@@ -28,209 +30,29 @@ const sidebarNavRendererData: SidebarNavRendererItem[] = [
             title: "Today",
             url: "#",
             icon: null,
-            isShowChevron: true,
-            items: [
-              {
-                title: "Procurement Chat",
-                url: "#",
-                icon: null,
-                isShowChevron: true,
-                items: [
-                  {
-                    title: "Sub-chat 1",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                  {
-                    title: "Sub-chat 2",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                ],
-              },
-              {
-                title: "New Nested Chat",
-                url: "#",
-                icon: null,
-                isShowChevron: true,
-                items: [
-                  {
-                    title: "Nested Sub-chat A",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                  {
-                    title: "Nested Sub-chat B",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                ],
-              },
-            ],
+            isShowChevron: false,
+            items: [],
           },
           {
             title: "Previous 7 Days",
             url: "#",
             icon: null,
             isShowChevron: false,
-            items: [
-              {
-                title: "Procurement Chat",
-                url: "#",
-                icon: null,
-                isShowChevron: true,
-                items: [
-                  {
-                    title: "Sub-chat 1",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                  {
-                    title: "Sub-chat 2",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                ],
-              },
-              {
-                title: "New Nested Chat",
-                url: "#",
-                icon: null,
-                isShowChevron: true,
-                items: [
-                  {
-                    title: "Nested Sub-chat A",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                  {
-                    title: "Nested Sub-chat B",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                ],
-              },
-            ],
+            items: null,
           },
           {
             title: "Procurement Chat",
             url: "#",
             icon: null,
             isShowChevron: false,
-            items: [
-              {
-                title: "Procurement Chat",
-                url: "#",
-                icon: null,
-                isShowChevron: true,
-                items: [
-                  {
-                    title: "Sub-chat 1",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                  {
-                    title: "Sub-chat 2",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                ],
-              },
-              {
-                title: "New Nested Chat",
-                url: "#",
-                icon: null,
-                isShowChevron: true,
-                items: [
-                  {
-                    title: "Nested Sub-chat A",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                  {
-                    title: "Nested Sub-chat B",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                ],
-              },
-            ],
+            items: null,
           },
           {
             title: "Imp Chats",
             url: "#",
             icon: null,
             isShowChevron: false,
-            items: [
-              {
-                title: "Procurement Chat",
-                url: "#",
-                icon: null,
-                isShowChevron: true,
-                items: [
-                  {
-                    title: "Sub-chat 1",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                  {
-                    title: "Sub-chat 2",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                ],
-              },
-              {
-                title: "New Nested Chat",
-                url: "#",
-                icon: null,
-                isShowChevron: true,
-                items: [
-                  {
-                    title: "Nested Sub-chat A",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                  {
-                    title: "Nested Sub-chat B",
-                    url: "#",
-                    icon: null,
-                    isShowChevron: false,
-                    items: null,
-                  },
-                ],
-              },
-            ],
+            items: null,
           },
           {
             title: "Analytics Research",
@@ -314,6 +136,20 @@ const sidebarNavRendererData: SidebarNavRendererItem[] = [
         items: null,
       },
     ],
+  },
+  {
+    title: "Outcomes",
+    url: "http://localhost:3000/dashboard/outcome",
+    icon: TrendingUp,
+    isShowChevron: true,
+    items: null
+  },
+  {
+    title: "Find Agent",
+    url: "http://localhost:3000/find-agent",
+    icon: User,
+    isShowChevron: true,
+    items: null
   },
 ];
 

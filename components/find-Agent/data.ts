@@ -1,4 +1,5 @@
 import type { Agent, MenuItem } from "./types"
+import johnCarterImage from "../../assets/3.jpg";
 
 export const menuItems: MenuItem[] = [
   { id: "all", label: "All Agents" },
@@ -22,7 +23,7 @@ export const agents: Agent[] = [
     id: "1",
     name: "John Carter",
     role: "Web Developer",
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk0dptDo0laY421idLF9pOGYQnhg0xvFgnHA&s",
     stats: {
       projects: 12,
       clients: 150,
@@ -34,7 +35,7 @@ export const agents: Agent[] = [
     id: "2",
     name: "Sarah Wilson",
     role: "UI/UX Designer",
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR6UmXLMXlr119z_yxANem0qL5uW3AtHPIdw&s",
     by: "john",
     category: "starter",
   },
@@ -42,7 +43,7 @@ export const agents: Agent[] = [
     id: "3",
     name: "Mike Parker",
     role: "Designer Portfolio",
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcPu0uG5ILtYC6q83b-LoI_dcHKw21ntkBhw&s",
     by: "stickPortfolio",
     category: "portfolio",
   },
@@ -50,7 +51,7 @@ export const agents: Agent[] = [
     id: "4",
     name: "John Schmidt",
     role: "Architecture Portfolio",
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm6hfdW6pqiSgr8IzE26hgjitY0l8JUFG-iA&s",
     by: "jackschmit",
     category: "portfolio",
   },
@@ -59,7 +60,7 @@ export const agents: Agent[] = [
     id: "5",
     name: "Emma Thompson",
     role: "E-commerce Specialist",
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Ge_CJa3FJ7vyawyd36MepAnwmiLPhFr1nA&s",
     by: "emmaT",
     category: "ecommerce",
   },
@@ -67,7 +68,7 @@ export const agents: Agent[] = [
     id: "6",
     name: "Alex Johnson",
     role: "Marketing Expert",
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBcfo6Y5vL5SIGjjGAzu4NxFgTc2W6GbR_9g&s",
     by: "alexJ",
     category: "marketing",
   },

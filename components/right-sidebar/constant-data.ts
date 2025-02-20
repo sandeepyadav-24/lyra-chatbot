@@ -15,7 +15,7 @@ export const similaritySearchAnalysisPlanData: SimilaritySearchAnalysisPlanDataT
       id: 1,
       icon: Dot,
       data: {
-        title: "Provide your data loc",
+        title: "Provide your data file",
         icon: FilePlus,
       },
     },

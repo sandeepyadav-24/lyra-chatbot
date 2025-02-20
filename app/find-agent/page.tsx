@@ -1,38 +1,28 @@
 "use client";
+import FindAgent from "@/components/find-Agent/find";
+import {RightSidebar} from "@/components/right-sidebar/right-sidebar";
+import {AppNavbar} from "@/components/navbar/app-navbar";
+import Breadcrumbs from "@/components/navbar/breadcrumbs";
 
-import { useState } from "react";
-import Sidebar from "@/components/find-Agent/sidebar";
-import AgentCard from "@/components/find-Agent/agent-card";
-import SearchBar from "@/components/find-Agent/search-bar";
-import { agents } from "@/components/find-Agent/data";
+// Rest of the code remains the same
 
 export default function Page() {
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  
 
-  const filteredAgents = agents.filter((agent) => {
-    const matchesCategory =
-      activeCategory === "all" || agent.category === activeCategory;
-    const matchesSearch =
-      agent.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      agent.role.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
 
   return (
-    <div className="flex min-h-screen">
-      <Sidebar activeItem={activeCategory} onItemSelect={setActiveCategory} />
-      <main className="flex-1 p-8">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold mb-6">Find Your Agent</h1>
-          <SearchBar onSearch={setSearchQuery} />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {filteredAgents.map((agent) => (
-              <AgentCard key={agent.id} agent={agent} />
-            ))}
-          </div>
+    <div className="bg-app-primary w-screen h-[100dvh] flex">
+    
+      <div className="flex-1 flex flex-col">
+        <AppNavbar />
+        <div className="min-[800px]:hidden px-6 py-3">
+          <Breadcrumbs />
         </div>
-      </main>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0 overflow-y-auto">
+        <FindAgent />
+        </div>
+      </div>
+      <RightSidebar />
     </div>
   );
 }

@@ -21,19 +21,24 @@ export default function SidebarNavRenderer({ data }: SidebarNavRendererProps) {
   const { leftSidebarOpen } = useStateStore();
   const [isOpenNavMain, setIsOpenNavMain] = useState<string[] | null>(null);
 
-  const handleClick = (title: string) => {
-    const remaining = isOpenNavMain?.includes(title)
-      ? isOpenNavMain.filter((t) => t !== title)
-      : [...(isOpenNavMain || []), title];
+  const handleClick = (item: SidebarNavRendererItem) => {
+    if (item.url) {
+      window.location.href = item.url; // Redirect if URL exists
+      return;
+    }
+    
+    const remaining = isOpenNavMain?.includes(item.title)
+      ? isOpenNavMain.filter((t) => t !== item.title)
+      : [...(isOpenNavMain || []), item.title];
     setIsOpenNavMain(remaining);
   };
 
   const handleKeyDown = (
     event: React.KeyboardEvent<HTMLDivElement>,
-    title: string
+    item: SidebarNavRendererItem
   ) => {
     if (event.key === "Enter") {
-      handleClick(title);
+      handleClick(item);
     }
   };
 
@@ -43,12 +48,12 @@ export default function SidebarNavRenderer({ data }: SidebarNavRendererProps) {
         <div key={item.title} className="flex flex-col gap-2 items-end">
           <div
             tabIndex={0}
-            onKeyDown={(event) => handleKeyDown(event, item.title)}
+            onKeyDown={(event) => handleKeyDown(event, item)}
             className="flex flex-row w-full items-center gap-2 cursor-pointer hover:bg-app-secondary px-2 py-[6px] rounded-md"
             onClick={(event) => {
               event.stopPropagation();
               event.preventDefault();
-              handleClick(item.title);
+              handleClick(item);
             }}
           >
             {item.icon && (
