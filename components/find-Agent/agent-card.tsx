@@ -1,6 +1,7 @@
 import { Heart } from "lucide-react";
 import type { Agent } from "./types";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 interface AgentCardProps {
   agent: Agent;
@@ -11,7 +12,7 @@ export default function AgentCard({ agent }: AgentCardProps) {
     <div className="rounded-3xl border border-gray-700 bg-app-secondary  text-white shadow-lg overflow-hidden transition-transform hover:scale-105 hover:shadow-xl">
       <div className="relative aspect-[4/3] p-3 ">
         <img
-          src="https://i0.wp.com/htmlcodex.com/wp-content/uploads/2020/09/developer-portfolio-template.jpg?resize=740%2C463&ssl=1"
+          src={agent.image}
           alt={agent.name}
           className="object-cover w-full h-full rounded-[50px]"
         />

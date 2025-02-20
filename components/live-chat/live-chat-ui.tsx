@@ -29,14 +29,14 @@ const LiveChatUI = () => {
       avatar: "/avatar2.png",
       position: "top-1/3 right-10",
     },
-    {
-      id: 4,
-      sender: "Bailey Uguz",
-      text: "Yep, I have a new concept for tomorrow",
-      color: "bg-green-500",
-      avatar: "/avatar3.png",
-      position: "bottom-40 right-10",
-    },
+    // {
+    //   id: 4,
+    //   sender: "Bailey Uguz",
+    //   text: "Yep, I have a new concept for tomorrow",
+    //   color: "bg-green-500",
+    //   avatar: "/avatar3.png",
+    //   position: "bottom-40 right-10",
+    // },
   ]);
 
   return (

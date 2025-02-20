@@ -8,6 +8,8 @@ import {
   RefreshCcw,
   LayoutDashboard,
   Workflow,
+  TrendingUp,
+  User
 } from "lucide-react";
 import { SidebarNavRendererItem } from "./sidebar-nav-renderer";
 
@@ -29,7 +31,7 @@ const sidebarNavRendererData: SidebarNavRendererItem[] = [
             url: "#",
             icon: null,
             isShowChevron: false,
-            items: null,
+            items: [],
           },
           {
             title: "Previous 7 Days",
@@ -134,6 +136,20 @@ const sidebarNavRendererData: SidebarNavRendererItem[] = [
         items: null,
       },
     ],
+  },
+  {
+    title: "Outcomes",
+    url: "http://localhost:3000/dashboard/outcome",
+    icon: TrendingUp,
+    isShowChevron: true,
+    items: null
+  },
+  {
+    title: "Find Agent",
+    url: "http://localhost:3000/find-agent",
+    icon: User,
+    isShowChevron: true,
+    items: null
   },
 ];
 
