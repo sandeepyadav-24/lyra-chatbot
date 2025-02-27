@@ -62,6 +62,8 @@ const ChatBubble = ({ message, messageType }: ChatBubbleProps) => {
           displayedText
         )}
       </div>
+
+      
     </div>
   );
 };

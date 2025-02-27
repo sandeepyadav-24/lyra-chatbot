@@ -5,6 +5,8 @@ import NewChatHeader from "../new-chat/new-chat-header";
 import ChatBubble from "./chat-bubble";
 import { useEffect, useRef } from "react";
 
+import Home from "../new-chat/newplan";
+
 const ChatUI = () => {
   const { chatMessages } = useStateStore();
 
@@ -30,8 +32,10 @@ const ChatUI = () => {
     >
       {isMessageEmpty ? (
         <>
-          <NewChatHeader />
-          <DefaultPlans />
+
+        {/* <Home /> */}
+          <NewChatHeader /> 
+           <DefaultPlans />
         </>
       ) : (
         <div className="flex flex-col gap-8 pt-10 max-w-[800px] mx-auto">
