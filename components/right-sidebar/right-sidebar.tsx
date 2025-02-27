@@ -2,6 +2,7 @@
 
 import { RightSidebarRoot } from "./components";
 import { SidebarHeader } from "./sidebar-header";
+import Unknownplan from "./unknownplan"
 import { motion } from "framer-motion";
 import StepRenderer from "./step-renderer";
 export function RightSidebar() {
@@ -18,7 +19,8 @@ export function RightSidebar() {
         </h2>
         <div className="w-full flex-1 bg-app-secondary p-5 flex flex-col gap-8 rounded-lg overflow-y-auto">
           <SidebarHeader />
-          <StepRenderer />
+          {/* <unknownplan /> */}
+          <Unknownplan/>
         </div>
       </motion.div>
     </RightSidebarRoot>

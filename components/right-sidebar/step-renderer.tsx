@@ -1,72 +1,100 @@
-import { useSearchParams } from "next/navigation";
-import { useCreatePlan, useGetPlanSteps } from "@/api-service/plans";
-import PlanStepsLoader from "../loader/plan-steps-loader";
-import { FilePlus, Landmark, ListChecks,PenTool } from "lucide-react";
-import ErrorComponent from "../error-component/error-component";
-import { PlansResponseType } from "@/api-service/plans";
-import { base64ToObject } from "@/utils/helper_functions";
-import { useEffect, useMemo } from "react";
+import { useSessionContext } from "@/provider/session-context";
+import { PenTool, CirclePlay, CirclePause, Map } from "lucide-react";
+import { useMemo, useState, useEffect } from "react";
+
+// Define the Step interface for type safety
+interface Step {
+  step_name: string;
+  step_details: string;
+}
 
 export default function StepRenderer() {
-  const searchParams = useSearchParams();
-  const activePlan = searchParams.get("plan")
-    ? base64ToObject<PlansResponseType["plans"][0]>(searchParams.get("plan")!)
-    : null;
+  // Access flow from session context
+  const { flow } = useSessionContext();
 
-  const playPlan = searchParams.get("play_plan") === "true";
-  const { data: stepsData, isLoading: stepsLoading } = useGetPlanSteps(activePlan?.id!);
-  const { mutate: createPlan } = useCreatePlan();
-  const steps = useMemo(() => stepsData?.steps, [stepsData?.steps]);
+  // State for controlling play/pause and current step
+  const [playPlan, setPlayPlan] = useState(false);
+  const [currentStepIndex, setCurrentStepIndex] = useState<number | null>(null);
 
-  useEffect(() => {
-    if (playPlan) {
-      createPlan({
-        steps: steps?.map((item) => ({
-          dependencies: item.dependencies,
-          is_critical: item.is_critical,
-          step_details: item.step_details,
-          step_name: item.step_name,
-          step_order: item.step_order,
-          step_type: item.step_type,
-          tool_id: "",
-        })) || [],
-        description: activePlan?.description!,
-        is_known_flow: false,
-        is_usecase: activePlan?.is_usecase!,
-        plan_name: activePlan?.plan_name!,
-        user_id: activePlan?.user_id!,
-        plan_type: "usecase",
-      });
+  // Memoize the steps array based on the flow value
+  const steps = useMemo<Step[]>(() => {
+    if (flow === "Known Flow") {
+      return [
+        { step_name: "Provide your data file", step_details: "" },
+        { step_name: "Load the data and display the first few rows", step_details: "" },
+        { step_name: "Specify the column containing the similarity search data", step_details: "" },
+        { step_name: "Parse the specified column as a datetime object and set it as the index", step_details: "" },
+        { step_name: "Plot the cost series data to visualize it", step_details: "" },
+        { step_name: "Specify any preprocessing steps needed (e.g., handling missing values, resampling)", step_details: "" },
+      ];
     }
-  }, [playPlan]);
+    return [];
+  }, [flow]);
 
-  if (stepsLoading) {
-    return <PlanStepsLoader />;
-  }
-  if ((stepsData as unknown as { errorCode: string })?.errorCode) {
-    return <ErrorComponent error={(stepsData as unknown as { message: string })?.message} />;
-  }
+  // Toggle play/pause state
+  const handlePlayPause = () => {
+    setPlayPlan((prev) => !prev);
+  };
 
-  const planRuns = [
-    { id: 1, description: "Provide your data file", icon: <FilePlus size={40} /> },
-    { id: 2, description: "Load the data and display the first few rows", icon: <PenTool size={40} /> },
-    { id: 3, description: "Specify the column containing the similarity search data", icon: <PenTool size={40} /> },
-    { id: 4, description: "Parse the specified column as a datetime object and set it as the index", icon: <PenTool size={40} /> },
-    { id: 5, description: "Plot the cost series data to visualize it", icon: <PenTool /> },
-    { id: 6, description: "Specify any preprocessing steps needed (e.g., handling missing values, resampling)", icon: <PenTool size={40} /> },
-  ];
+  // Effect to manage the highlighting loop
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout | undefined;
+
+    if (playPlan && steps.length > 0) {
+      setCurrentStepIndex(0); // Start with the first step
+      intervalId = setInterval(() => {
+        setCurrentStepIndex((prevIndex) => {
+          if (prevIndex === null) return 0;
+          return (prevIndex + 1) % steps.length; // Loop back to start
+        });
+      }, 5000); // Move to next step every 5 seconds
+    } else {
+      setCurrentStepIndex(null); // Clear highlight when paused
+    }
+
+    // Cleanup interval on unmount or change
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [playPlan, steps.length]);
 
   return (
-    <div className="flex flex-col gap-4 p-6 bg-black text-white rounded-lg">
-      <h2 className="text-lg font-bold">Similarity Search Analysis Plan</h2>
-      <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-        Provide your data file <FilePlus size={20} />
+    <div className="flex flex-col gap-4">
+      {/* Play/Pause Button */}
+      <button
+        onClick={handlePlayPause}
+        className={`flex items-center gap-2 px-4 py-2 text-white rounded-lg ${
+          playPlan ? "" : ""
+        }`}
+      >
+        {playPlan ? <CirclePause size={24} /> : <CirclePlay size={24} />}
+        {playPlan ? "Pause" : "Play"}
       </button>
-      <div className="flex flex-col gap-4 mt-4">
-        {planRuns.map((run) => (
-          <div key={run.id} className="flex items-center gap-2 p-3 border  rounded-lg">
-            {run.icon}
-            <p>{run.description}</p>
+
+      {/* Steps List */}
+      <div className="flex flex-col gap-4">
+        {steps.map((item, index) => (
+          <div
+            key={item.step_name}
+            className={`flex items-center gap-2 w-full rounded-lg p-3 `}
+          >
+               <div className="w-5 h-5">
+            {index === currentStepIndex ? (
+              <Map size={24} />
+            ) : (
+              <span style={{ transform: "rotate(90deg)", display: "inline-block",margin:"-15px" }}>
+                <PenTool style={{ height: "30px", width: "30px" }} />
+              </span>
+            )}
+          </div>
+            <button className={`flex outline-none gap-2 text-left border border-app-primaryBorder justify-between rounded-lg p-3 flex-1 hover:bg-app-buttonActive cursor-pointer focus:outline-app-buttonActive ${
+              index === currentStepIndex ? "bg-green-500" : " "
+            }`}>
+              <div className="flex flex-col gap-2">
+                <p>{item.step_name}</p>
+                {item.step_details && <p>{item.step_details}</p>}
+              </div>
+            </button>
           </div>
         ))}
       </div>
