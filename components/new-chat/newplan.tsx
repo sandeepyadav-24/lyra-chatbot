@@ -10,7 +10,7 @@ interface VideoPlayerRef {
 
 export default function Home() {
   const videoRef = useRef<VideoPlayerRef>(null);
-  const pauseTimes = [5, 7]; // Pause at 5 seconds and 7 seconds
+  const pauseTimes = [5, 9]; // Pause at 5 seconds and 7 seconds
   const { shouldResume, setShouldResume } = useSessionContext();
 
   // Function to resume the video
