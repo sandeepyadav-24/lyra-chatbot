@@ -2,9 +2,14 @@
 
 import { RightSidebarRoot } from "./components";
 import { SidebarHeader } from "./sidebar-header";
+import Unknownplan from "./unknownplan";
 import { motion } from "framer-motion";
 import StepRenderer from "./step-renderer";
+import { useSessionContext } from "@/provider/session-context";
+
 export function RightSidebar() {
+  const { flow } = useSessionContext();
+  
   return (
     <RightSidebarRoot>
       <motion.div
@@ -18,9 +23,10 @@ export function RightSidebar() {
         </h2>
         <div className="w-full flex-1 bg-app-secondary p-5 flex flex-col gap-8 rounded-lg overflow-y-auto">
           <SidebarHeader />
-          <StepRenderer />
+          {flow === "Known Flow" ? <StepRenderer /> : <Unknownplan />}
         </div>
       </motion.div>
     </RightSidebarRoot>
   );
 }
+

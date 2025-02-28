@@ -123,7 +123,7 @@ const sidebarNavRendererData: SidebarNavRendererItem[] = [
       },
       {
         title: "Agent Labs",
-        url: "#",
+        url: "http://localhost:3000/find-agent",
         icon: Thermometer,
         isShowChevron: false,
         items: null,
@@ -137,20 +137,20 @@ const sidebarNavRendererData: SidebarNavRendererItem[] = [
       },
     ],
   },
-  {
-    title: "Outcomes",
-    url: "http://localhost:3000/dashboard/outcome",
-    icon: TrendingUp,
-    isShowChevron: true,
-    items: null
-  },
-  {
-    title: "Find Agent",
-    url: "http://localhost:3000/find-agent",
-    icon: User,
-    isShowChevron: true,
-    items: null
-  },
+  // {
+  //   title: "Outcomes",
+  //   url: "http://localhost:3000/dashboard/outcome",
+  //   icon: TrendingUp,
+  //   isShowChevron: true,
+  //   items: null
+  // },
+  // {
+  //   title: "Find Agent",
+  //   url: "http://localhost:3000/find-agent",
+  //   icon: User,
+  //   isShowChevron: true,
+  //   items: null
+  // },
 ];
 
 export { sidebarNavRendererData };
