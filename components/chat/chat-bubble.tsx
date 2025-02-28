@@ -1,5 +1,8 @@
+"use client";
+
 import { Radius, User } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useSessionContext } from "@/provider/session-context";
 
 type ChatBubbleProps = {
   message: string;
@@ -8,6 +11,8 @@ type ChatBubbleProps = {
 
 const ChatBubble = ({ message, messageType }: ChatBubbleProps) => {
   const [displayedText, setDisplayedText] = useState("");
+  const [hasLogged, setHasLogged] = useState(false);
+  const { flow, shouldResume, setShouldResume } = useSessionContext();
 
   useEffect(() => {
     if (messageType === "assistant") {
@@ -23,13 +28,22 @@ const ChatBubble = ({ message, messageType }: ChatBubbleProps) => {
         } else {
           clearInterval(interval);
         }
-      }, 100); // Adjust speed for streaming effect
+      }, 100);
 
       return () => clearInterval(interval);
     } else {
-      setDisplayedText(message); // Instantly show user messages
+      setDisplayedText(message);
     }
   }, [message, messageType]);
+
+  // Log and set shouldResume for "Searching part database..." message
+  if (message.includes("Searching part database...") && !hasLogged) {
+    console.log("okkk");
+    setHasLogged(true);
+    if (!shouldResume) {
+      setShouldResume(true); // Trigger resume when this message appears
+    }
+  }
 
   if (messageType === "user") {
     return (
@@ -54,7 +68,7 @@ const ChatBubble = ({ message, messageType }: ChatBubbleProps) => {
       <div className="p-2 flex-1">
         {message.includes("Displaying 3D model visualization") ? (
           <img
-            src="https://v3.fal.media/files/lion/BsFfyGeZvIOWAWPtupJKM.png" // Replace with actual image URL
+            src="https://v3.fal.media/files/lion/BsFfyGeZvIOWAWPtupJKM.png"
             alt="3D Model Visualization"
             className="w-full h-auto rounded-md"
           />
@@ -62,8 +76,6 @@ const ChatBubble = ({ message, messageType }: ChatBubbleProps) => {
           displayedText
         )}
       </div>
-
-      
     </div>
   );
 };

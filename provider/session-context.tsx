@@ -8,9 +8,7 @@ type SessionType = {
   status: "success" | "error";
   session_id: string;
   mode: "interactive" | "non-interactive";
-  response: {
-    message: string;
-  };
+  response: { message: string };
   next_action: null | string;
 };
 
@@ -18,8 +16,9 @@ interface ContextType {
   session: SessionType | null;
   flow: string;
   setFlow: React.Dispatch<React.SetStateAction<string>>;
+  shouldResume: boolean; // New flag to trigger resume
+  setShouldResume: React.Dispatch<React.SetStateAction<boolean>>; // Setter for the flag
 }
-
 
 const SessionContext = createContext<ContextType | null>(null);
 
@@ -30,7 +29,8 @@ export default function SessionContextProvider({
 }) {
   const { status } = useSession();
   const [session, setSession] = useState<SessionType | null>(null);
-  const [flow, setFlow] = useState<string>("Unknown Flow"); // State for "flow"
+  const [flow, setFlow] = useState<string>("Unknown Flow");
+  const [shouldResume, setShouldResume] = useState<boolean>(false); // New state
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -52,22 +52,20 @@ export default function SessionContextProvider({
     }
   }, [status]);
 
-  const contextValue = { session, flow, setFlow }; // Provide both session and flow
+  const contextValue = { session, flow, setFlow, shouldResume, setShouldResume };
 
   return (
-    <SessionContext.Provider value={contextValue}> {/* Provide the combined value */}
+    <SessionContext.Provider value={contextValue}>
       {loading ? <p>Loading...</p> : children}
       {error && <p>{error}</p>}
     </SessionContext.Provider>
   );
 }
 
-
 export const useSessionContext = () => {
-  const context = useContext(SessionContext); // Get the whole context value
-
+  const context = useContext(SessionContext);
   if (!context) {
     throw new Error("useSessionContext must be used within a SessionContextProvider");
   }
-  return context;  // Return the context value (session and flow)
+  return context;
 };

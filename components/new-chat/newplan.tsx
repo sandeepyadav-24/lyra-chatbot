@@ -1,54 +1,46 @@
-// app/page.tsx
-import React, { useState } from 'react';
-import VideoComponent from './vediocomponent';
-import TimestampProvider from './timestamp';
+"use client";
+
+import React, { useRef, useEffect } from "react";
+import VideoPlayer from "./vediocomponent";
+import { useSessionContext } from "@/provider/session-context";
+
+interface VideoPlayerRef {
+  resumePlayback: () => void;
+}
 
 export default function Home() {
-  const [targetTimestamp, setTargetTimestamp] = useState<number | undefined>(undefined); // Changed from null to undefined
+  const videoRef = useRef<VideoPlayerRef>(null);
+  const pauseTimes = [5, 7]; // Pause at 5 seconds and 7 seconds
+  const { shouldResume, setShouldResume } = useSessionContext();
 
-  const handleTimestampChange = (timestamp: number) => {
-    setTargetTimestamp(timestamp);
+  // Function to resume the video
+  const handleResume = () => {
+    if (videoRef.current) {
+      videoRef.current.resumePlayback(); // Resume playback
+      setShouldResume(false); // Reset the flag after resuming
+    }
   };
 
-  const updateVideoTimestamp = (newTimestamp: number) => {
-    setTargetTimestamp(newTimestamp);
-
-    console.log(newTimestamp);
-  };
+  // Effect to trigger handleResume when shouldResume becomes true
+  useEffect(() => {
+    if (shouldResume) {
+      handleResume();
+    }
+  }, [shouldResume]);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
-      <h1 className="text-3xl font-bold mb-6">Video Player Demo</h1>
-
-      <VideoComponent
-        src="/assets/vid.mp4"
-        targetTimestamp={targetTimestamp}
-      />
-
-      <TimestampProvider onTimestampChange={handleTimestampChange} />
-
-      <div className="mt-4 space-x-4">
-        <button
-          onClick={() => updateVideoTimestamp(5)}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        >
-          Jump to 5s
-        </button>
-        <button
-          onClick={() => updateVideoTimestamp(8)
-
-          }
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        >
-          Jump to 15s
-        </button>
-        <button
-          onClick={() => updateVideoTimestamp(30)}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        >
-          Jump to 30s
-        </button>
+    <div className="flex flex-col items-center gap-4 p-4">
+      {/* <h1 className="text-2xl font-bold">Video Demo</h1> */}
+      <div className="rounded-lg overflow-hidden">
+        <VideoPlayer ref={videoRef} pauseTimes={pauseTimes} />
       </div>
+      {/* Uncomment if you still want a manual resume button */}
+      {/* <button 
+        onClick={handleResume}
+        className="px-4 py-2"
+      >
+        Resume Video
+      </button> */}
     </div>
   );
 }
