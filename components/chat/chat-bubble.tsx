@@ -4,6 +4,8 @@ import { Radius, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSessionContext } from "@/provider/session-context";
 
+import GLTFModel from "../new-chat/GLTFModel";
+
 type ChatBubbleProps = {
   message: string;
   messageType: "user" | "assistant";
@@ -67,11 +69,16 @@ const ChatBubble = ({ message, messageType }: ChatBubbleProps) => {
       </div>
       <div className="p-2 flex-1">
         {message.includes("Displaying 3D model visualization") ? (
-          <img
-            src="https://v3.fal.media/files/lion/BsFfyGeZvIOWAWPtupJKM.png"
-            alt="3D Model Visualization"
-            className="w-full h-auto rounded-md"
-          />
+          // <img
+          //   src="https://v3.fal.media/files/lion/BsFfyGeZvIOWAWPtupJKM.png"
+          //   alt="3D Model Visualization"
+          //   className="w-full h-auto rounded-md"
+          // />
+
+          <main className="flex flex-col items-center justify-center min-h-screen ">
+          <h1 className="text-2xl font-bold mb-4">3D Model Viewer</h1>
+          <GLTFModel modelPath="/assets/bolt.gltf" />
+        </main>
         ) : (
           displayedText
         )}
