@@ -7,6 +7,8 @@ import { useEffect, useRef } from "react";
 import { useSessionContext } from "@/provider/session-context";
 import Home from "../new-chat/newplan";
 
+import GLTFModelViewer from "../new-chat/GLTFModelViewer";
+
 const ChatUI = () => {
   const { chatMessages } = useStateStore();
 
@@ -51,6 +53,7 @@ const ChatUI = () => {
         </>
       ) : isMessageEmpty ? (
         <>
+        {/* <GLTFModelViewer /> */}
           <NewChatHeader />
           <DefaultPlans />
         </>
