@@ -3,7 +3,6 @@
 import { Radius, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSessionContext } from "@/provider/session-context";
-
 import GLTFModel from "../new-chat/GLTFModel";
 
 type ChatBubbleProps = {
@@ -14,6 +13,7 @@ type ChatBubbleProps = {
 const ChatBubble = ({ message, messageType }: ChatBubbleProps) => {
   const [displayedText, setDisplayedText] = useState("");
   const [hasLogged, setHasLogged] = useState(false);
+  const [isModelLoading, setIsModelLoading] = useState(true); // New loading state
   const { flow, shouldResume, setShouldResume } = useSessionContext();
 
   useEffect(() => {
@@ -38,12 +38,24 @@ const ChatBubble = ({ message, messageType }: ChatBubbleProps) => {
     }
   }, [message, messageType]);
 
+  // Add loading delay for 3D model
+  useEffect(() => {
+    if (message.includes("Displaying side-by-side 3D comparison")) {
+      setIsModelLoading(true);
+      const timer = setTimeout(() => {
+        setIsModelLoading(false);
+      }, 2000); // 2-second delay (adjust as needed)
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
   // Log and set shouldResume for "Searching part database..." message
   if (message.includes("Searching part database...") && !hasLogged) {
     console.log("okkk");
     setHasLogged(true);
     if (!shouldResume) {
-      setShouldResume(true); // Trigger resume when this message appears
+      setShouldResume(true);
     }
   }
 
@@ -68,17 +80,17 @@ const ChatBubble = ({ message, messageType }: ChatBubbleProps) => {
         <Radius size={24} />
       </div>
       <div className="p-2 flex-1">
-        {message.includes("Displaying 3D model visualization") ? (
-          // <img
-          //   src="https://v3.fal.media/files/lion/BsFfyGeZvIOWAWPtupJKM.png"
-          //   alt="3D Model Visualization"
-          //   className="w-full h-auto rounded-md"
-          // />
-
-          <main className="flex flex-col items-center justify-center min-h-screen ">
-          <h1 className="text-2xl font-bold mb-4">3D Model Viewer</h1>
-          <GLTFModel modelPath="/assets/bolt.gltf" />
-        </main>
+        {message.includes("Displaying side-by-side 3D comparison") ? (
+          isModelLoading ? (
+            <div className="flex flex-col items-center justify-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+              <p>Loading 3D model...</p>
+            </div>
+          ) : (
+            <main className="flex flex-col items-center justify-center min-h-screen">
+              <GLTFModel modelPath="/assets/bolt.gltf" />
+            </main>
+          )
         ) : (
           displayedText
         )}
