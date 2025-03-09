@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -94,8 +93,40 @@ const DashboardPage: FC = () => {
         <MetricCard title="Accounts payable" value="500" icon="💰" />
         <MetricCard title="Reorder Level" value="10.5%" icon="📊" />
       </div>
-
+      <Card>
+        <CardContent className="p-4">
+          <h3 className="font-semibold mb-4">Outcomes Overview</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="flex flex-col items-center p-4 border rounded-lg">
+              <h4 className="font-medium mb-2">Outcome 1</h4>
+              <div className="w-32 h-32 bg-gray-200 flex items-center justify-center">
+                <span className="text-gray-500">Image 1</span>
+              </div>
+            </div>
+            <div className="flex flex-col items-center p-4 border rounded-lg">
+              <h4 className="font-medium mb-2">Outcome 2</h4>
+              <div className="w-32 h-32 bg-gray-200 flex items-center justify-center">
+                <span className="text-gray-500">Image 2</span>
+              </div>
+            </div>
+            <div className="flex flex-col items-center p-4 border rounded-lg">
+              <h4 className="font-medium mb-2">Outcome 3</h4>
+              <div className="w-32 h-32 bg-gray-200 flex items-center justify-center">
+                <span className="text-gray-500">Image 3</span>
+              </div>
+            </div>
+            <div className="flex flex-col items-center p-4 border rounded-lg">
+              <h4 className="font-medium mb-2">Outcome 4</h4>
+              <div className="w-32 h-32 bg-gray-200 flex items-center justify-center">
+                <span className="text-gray-500">Image 4</span>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+
+        
         <Card>
           <CardContent className="p-4">
             <h3 className="font-semibold mb-4">Inventory Trend Analysis</h3>
@@ -121,6 +152,9 @@ const DashboardPage: FC = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* New Outcomes Section */}
+
 
       <div className="overflow-x-auto bg-app-primary rounded-lg shadow-md">
         <div className="flex justify-between items-center p-4 border-b border-app-primaryBorder">

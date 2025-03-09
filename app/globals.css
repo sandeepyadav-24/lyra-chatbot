@@ -51,6 +51,38 @@ body {
   }
 }
 
+
+/* Define the custom properties (variables) */
+.overflow-y-auto {
+  --sb-track-color: #232E33; /* Track color */
+  --sb-thumb-color: #84928b; /* Thumb color */
+  --sb-size: 4px; /* Thin scrollbar size */
+  overflow-y: auto; /* Ensure the overflow behavior is set */
+}
+
+/* Webkit-based browsers (Chrome, Safari, Edge) */
+.overflow-y-auto::-webkit-scrollbar {
+  width: var(--sb-size); /* Thin scrollbar width */
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: var(--sb-track-color); /* Track color */
+  border-radius: 3px; /* Rounded edges */
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color); /* Thumb color */
+  border-radius: 3px; /* Rounded edges */
+}
+
+/* Firefox support */
+@supports not selector(::-webkit-scrollbar) {
+  .overflow-y-auto {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color); /* Thumb and track colors */
+  }
+}
+
 @layer base {
   body {
     @apply bg-app-primary;

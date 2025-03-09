@@ -116,7 +116,7 @@ const sidebarNavRendererData: SidebarNavRendererItem[] = [
       },
       {
         title: "Team discussions",
-        url: "#",
+        url: "http://localhost:3000/dashboard/team-chat",
         icon: Users,
         isShowChevron: false,
         items: null,
@@ -137,13 +137,13 @@ const sidebarNavRendererData: SidebarNavRendererItem[] = [
       },
     ],
   },
-  // {
-  //   title: "Outcomes",
-  //   url: "http://localhost:3000/dashboard/outcome",
-  //   icon: TrendingUp,
-  //   isShowChevron: true,
-  //   items: null
-  // },
+  {
+    title: "Outcomes",
+    url: "http://localhost:3000/dashboard/outcome",
+    icon: TrendingUp,
+    isShowChevron: true,
+    items: null
+  },
   // {
   //   title: "Find Agent",
   //   url: "http://localhost:3000/find-agent",
